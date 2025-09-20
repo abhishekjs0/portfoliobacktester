@@ -1,0 +1,5 @@
+"Trade #","Type (Long/Short)","Date/Time","Signal","Price","Position size","Net P&L","Run-up","Drawdown","Cumulative P&L"
+1,Long,2024-01-03 09:30:00,Entry,50,8000,0,0,0,0
+1,Long,2024-01-08 15:30:00,Close entirely order,51.5,8000,120,200,-80,120
+2,Long,2024-01-15 09:30:00,Entry,52,8000,0,0,0,120
+2,Long,2024-01-20 15:30:00,Close entirely order,51,8000,-80,60,-140,40

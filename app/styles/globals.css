@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: #0b1120;
+}
+
+.tv-card {
+  @apply rounded-xl border border-white/5 bg-slate-900/80 backdrop-blur-lg shadow-lg shadow-black/20;
+}
+
+.tv-grid {
+  @apply grid gap-6;
+}
+
+.tv-heading {
+  @apply text-lg font-semibold tracking-tight;
+}
+
+.tv-subtle {
+  @apply text-sm text-slate-300;
+}

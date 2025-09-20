@@ -1,0 +1,32 @@
+[project]
+name = "portfolio-backtester-api"
+version = "0.1.0"
+description = "FastAPI backend for TradingView multi-symbol portfolio backtesting"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.105",
+  "uvicorn[standard]>=0.24",
+  "pandas>=2.1",
+  "numpy>=1.26",
+  "python-multipart>=0.0.6",
+  "sqlalchemy>=2.0",
+  "psycopg[binary]>=3.1",
+  "alembic>=1.12",
+  "pydantic>=2.4",
+  "pydantic-settings>=2.0",
+  "boto3>=1.28",
+  "python-dateutil>=2.8",
+  "tenacity>=8.2"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.4",
+  "pytest-asyncio>=0.21",
+  "httpx>=0.25",
+  "moto[s3]>=4.2"
+]
+
+[build-system]
+requires = ["setuptools>=67", "wheel"]
+build-backend = "setuptools.build_meta"
