@@ -11,10 +11,11 @@ app/node_modules
 # Python
 __pycache__/
 *.py[cod]
-.env
 .venv
 venv/
 .env.*
+!.env.example
+!app/.env.local.example
 
 # Data
 storage/
