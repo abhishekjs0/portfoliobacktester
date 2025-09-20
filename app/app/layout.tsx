@@ -1,6 +1,8 @@
 import "../styles/globals.css";
 import { ReactNode } from "react";
 import Providers from "../components/providers";
+import { SiteHeader } from "../components/site-header";
+import { SiteFooter } from "../components/site-footer";
 
 export const metadata = {
   title: "Portfolio Backtester",
@@ -12,7 +14,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body>
         <Providers>
-          <div className="app-shell">{children}</div>
+          <div className="app-shell">
+            <SiteHeader />
+            <main className="site-main">{children}</main>
+            <SiteFooter />
+          </div>
         </Providers>
       </body>
     </html>
