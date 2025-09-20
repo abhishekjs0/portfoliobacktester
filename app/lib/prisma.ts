@@ -3,34 +3,28 @@ import type { PrismaClient } from "@prisma/client";
 type PrismaModule = typeof import("@prisma/client");
 
 const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined;
+  prisma?: PrismaClient;
 };
 
-let prismaClient: PrismaClient | undefined = globalForPrisma.prisma;
+let prisma: PrismaClient | undefined = globalForPrisma.prisma;
 
-const createPrismaClient = (): PrismaClient | undefined => {
-  if (prismaClient) return prismaClient;
-
+if (!prisma) {
   try {
     const { PrismaClient }: PrismaModule = require("@prisma/client");
-    prismaClient = new PrismaClient();
+    prisma = new PrismaClient();
 
     if (process.env.NODE_ENV !== "production") {
-      globalForPrisma.prisma = prismaClient;
+      globalForPrisma.prisma = prisma;
     }
   } catch (error) {
     if (process.env.NODE_ENV !== "production") {
       console.warn(
-        "Failed to initialize Prisma Client. Continuing without a database connection.",
+        "Prisma Client could not be initialized. Continuing without a database connection.",
         error,
       );
     }
-    prismaClient = undefined;
+    prisma = undefined;
   }
+}
 
-  return prismaClient;
-};
-
-export const getPrismaClient = (): PrismaClient | undefined => createPrismaClient();
-
-export const prisma = createPrismaClient();
+export { prisma };
