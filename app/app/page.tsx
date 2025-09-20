@@ -219,15 +219,15 @@ export default function Home() {
               <h3 id="cta-heading">Join the early access cohort</h3>
               <p>Spots this month are capped to ensure fast onboarding and support.</p>
             </div>
-            <form className="landing-inline-form" aria-label="Reserve spot" onSubmit={(event) => event.preventDefault()}>
+            <div className="landing-inline-form" role="form" aria-label="Reserve spot">
               <label className="sr-only" htmlFor="cta-email">
                 Email address
               </label>
               <input id="cta-email" type="email" placeholder="Email address" required />
-              <button type="submit" className="landing-btn">
+              <button type="button" className="landing-btn">
                 Reserve my spot
               </button>
-            </form>
+            </div>
           </div>
         </div>
       </section>
