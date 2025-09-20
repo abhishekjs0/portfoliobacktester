@@ -14,9 +14,12 @@ dependencies = [
   "alembic>=1.12",
   "pydantic>=2.4",
   "pydantic-settings>=2.0",
+  "email-validator>=2.1",
   "boto3>=1.28",
   "python-dateutil>=2.8",
-  "tenacity>=8.2"
+  "tenacity>=8.2",
+  "passlib[bcrypt]>=1.7",
+  "slowapi>=0.1.9"
 ]
 
 [project.optional-dependencies]
