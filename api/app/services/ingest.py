@@ -29,6 +29,68 @@ REQUIRED_COLUMNS = [
 ]
 
 
+# Map canonical headers to acceptable aliases ordered by preference.
+COLUMN_ALIASES: dict[str, tuple[str, ...]] = {
+    "Type (Long/Short)": (
+        "Type",
+        "Trade type",
+        "Direction",
+    ),
+    "Price": (
+        "Price INR",
+        "Price USD",
+        "Entry price",
+        "Exit price",
+    ),
+    "Position size": (
+        "Position size (value)",
+        "Position size (qty)",
+        "Position size value",
+        "Position size quantity",
+    ),
+    "Net P&L": (
+        "Net P&L INR",
+        "Net profit",
+        "Profit",
+    ),
+    "Run-up": (
+        "Run-up INR",
+        "Runup",
+        "Max run-up",
+    ),
+    "Drawdown": (
+        "Drawdown INR",
+        "Draw down",
+        "Max drawdown",
+    ),
+    "Cumulative P&L": (
+        "Cumulative P&L INR",
+        "Cumulative profit",
+    ),
+}
+
+
+def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
+    """Rename known column aliases to their canonical headers."""
+
+    normalized = df.copy()
+    normalized.columns = [col.strip() for col in normalized.columns]
+
+    rename_map: dict[str, str] = {}
+    for canonical, aliases in COLUMN_ALIASES.items():
+        if canonical in normalized.columns:
+            continue
+        for alias in aliases:
+            if alias in normalized.columns:
+                rename_map[alias] = canonical
+                break
+
+    if rename_map:
+        normalized = normalized.rename(columns=rename_map)
+
+    return normalized
+
+
 def parse_filename(filename: str) -> tuple[str, str, datetime]:
     try:
         strategy, ticker, date_part = filename.replace(".csv", "").rsplit("_", 2)
@@ -60,6 +122,7 @@ def ingest_files(db: Session, user: tables.User, files: Iterable[UploadFile]) ->
         file_bytes = upload.file.read()
         buffer = io.BytesIO(file_bytes)
         df = pd.read_csv(buffer)
+        df = normalize_columns(df)
         validate_columns(df)
         strategy, ticker, export_date = parse_filename(upload.filename)
         if first_strategy is None:

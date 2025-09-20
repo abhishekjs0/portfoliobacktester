@@ -3,13 +3,15 @@ import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import EmailProvider from "next-auth/providers/email";
 import type { NextAuthOptions } from "next-auth";
-import { prisma } from "./prisma";
+import { getPrismaClient } from "./prisma";
+
+const prisma = getPrismaClient();
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
+  adapter: prisma ? PrismaAdapter(prisma) : undefined,
   secret: process.env.NEXTAUTH_SECRET,
   session: {
-    strategy: "database",
+    strategy: prisma ? "database" : "jwt",
   },
   providers: [
     GoogleProvider({
