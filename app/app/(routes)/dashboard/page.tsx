@@ -1,14 +1,26 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
 import { DateRangePicker } from "../../../components/date-range-picker";
-import { EquityChart } from "../../../components/equity-chart";
 import { FileTable } from "../../../components/file-table";
 import { KPITile } from "../../../components/kpi-tile";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../components/ui/tabs";
 import { formatCurrency, formatPercent } from "../../../lib/format";
 import { PortfolioRunResponse, runPortfolio } from "../../../lib/api";
+
+const EquityChart = dynamic(
+  () => import("../../../components/equity-chart").then((mod) => mod.EquityChart),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="tv-card h-96 p-4 text-slate-300" role="status" aria-live="polite">
+        Loading chart…
+      </div>
+    ),
+  },
+);
 
 export default function DashboardPage() {
   const searchParams = useSearchParams();

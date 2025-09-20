@@ -77,10 +77,10 @@ export default function Home() {
             tab-hopping or spreadsheet stitching.
           </p>
           <div className="landing-hero-cta" role="group" aria-label="Primary call to action">
-            <Link className="landing-btn" href="/upload">
+            <Link className="landing-btn" href="/upload" data-analytics-event="hero_start_trial">
               Start free – 14 days
             </Link>
-            <a className="landing-btn secondary" href="#how">
+            <a className="landing-btn secondary" href="#how" data-analytics-event="hero_scroll_how">
               See how it works
             </a>
           </div>
@@ -160,8 +160,17 @@ export default function Home() {
                 <label className="sr-only" htmlFor="beta-email">
                   Email address
                 </label>
-                <input id="beta-email" type="email" placeholder="Enter your email to join the beta" required />
-                <button type="submit" className="landing-btn">
+                <input
+                  id="beta-email"
+                  type="email"
+                  placeholder="Enter your email to join the beta"
+                  required
+                  aria-describedby="signup-helper"
+                />
+                <span id="signup-helper" className="sr-only">
+                  We will email you onboarding materials and will not share your address.
+                </span>
+                <button type="submit" className="landing-btn" data-analytics-event="beta_request">
                   Get early access
                 </button>
               </form>
@@ -202,8 +211,15 @@ export default function Home() {
               <label className="sr-only" htmlFor="cta-email">
                 Email address
               </label>
-              <input id="cta-email" type="email" placeholder="Email address" required />
-              <button type="submit" className="landing-btn">
+              <input
+                id="cta-email"
+                type="email"
+                placeholder="Email address"
+                required
+                aria-describedby="cta-helper"
+              />
+              <span id="cta-helper" className="sr-only">We send only onboarding details.</span>
+              <button type="submit" className="landing-btn" data-analytics-event="cta_waitlist">
                 Reserve my spot
               </button>
             </form>

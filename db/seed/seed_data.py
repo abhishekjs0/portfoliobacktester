@@ -38,6 +38,36 @@ def seed(database_url: str = "postgresql+psycopg://portfolio:portfolio@localhost
     )
     session.add(run)
     session.commit()
+
+    # Seed normalized SaaS schema with demo data
+    plan = tables.Plan(name="Pro", price_cents=19900, features={"seats": 1, "storage": "10GB"})
+    saas_user = tables.SaaSUser(
+        plan=plan,
+        name="Demo Researcher",
+        email="researcher@example.com",
+        password_hash="demo-hash",
+    )
+    strategy = tables.Strategy(
+        user=saas_user,
+        name="Momentum Blend",
+        code="// trading strategy placeholder",
+        description="Baseline momentum system for onboarding demos.",
+    )
+    upload = tables.Upload(
+        user=saas_user,
+        filename="demo.csv",
+        s3_key="demo/demo.csv",
+    )
+    backtest = tables.Backtest(
+        user=saas_user,
+        strategy=strategy,
+        upload=upload,
+        result_json={"note": "seeded backtest"},
+    )
+    lead = tables.Lead(user=saas_user, name="Prospect", email="lead@example.com", message="Tell me more")
+    feedback = tables.Feedback(user=saas_user, message="Great onboarding!", rating=5)
+    session.add_all([plan, saas_user, strategy, upload, backtest, lead, feedback])
+    session.commit()
     session.close()
 
 

@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     s3_secret_key: str = "minioadmin"
     s3_bucket: str = "portfolio-uploads"
 
-    cors_allow_origins: Sequence[str] = (
+    cors_allow_origins: Sequence[str] | str = (
         "http://localhost:3000",
         "http://127.0.0.1:3000",
     )
