@@ -16,7 +16,8 @@ dependencies = [
   "pydantic-settings>=2.0",
   "boto3>=1.28",
   "python-dateutil>=2.8",
-  "tenacity>=8.2"
+  "tenacity>=8.2",
+  "stripe>=7.11"
 ]
 
 [project.optional-dependencies]

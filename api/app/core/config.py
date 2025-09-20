@@ -33,6 +33,13 @@ class Settings(BaseSettings):
     pro_runs_per_day: int = 20
     enterprise_runs_per_day: int = 1000
 
+    stripe_api_key: str = ""
+    stripe_webhook_secret: str = ""
+    stripe_price_standard_monthly: str = "price_standard_monthly"
+    stripe_price_standard_annual: str = "price_standard_annual"
+    stripe_price_pro_monthly: str = "price_pro_monthly"
+    stripe_price_pro_annual: str = "price_pro_annual"
+
     @property
     def sqlalchemy_database_url(self) -> str:
         """Return a SQLAlchemy-compatible DSN, coercing the driver if needed."""

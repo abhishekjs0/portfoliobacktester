@@ -6,6 +6,7 @@ from fastapi import Depends, Header, HTTPException, status
 from sqlalchemy.orm import Session
 
 from . import db
+from .core.config import settings
 from .models import tables
 
 
@@ -53,7 +54,8 @@ def enforce_plan_limits(user: tables.User, db_session: Session, files_count: int
 
     plan_limits = {
         "free": (settings.free_max_files, settings.free_runs_per_day),
-        "pro": (settings.pro_max_files, settings.pro_runs_per_day),
+        "standard": (settings.pro_max_files, settings.pro_runs_per_day),
+        "pro": (settings.enterprise_max_files, settings.enterprise_runs_per_day),
         "enterprise": (settings.enterprise_max_files, settings.enterprise_runs_per_day),
     }
     max_files, max_runs = plan_limits.get(user.plan, plan_limits["free"])
@@ -78,7 +80,8 @@ def track_run(user: tables.User, db_session: Session) -> None:
     usage = _get_usage(db_session, user)
     plan_limits = {
         "free": (settings.free_max_files, settings.free_runs_per_day),
-        "pro": (settings.pro_max_files, settings.pro_runs_per_day),
+        "standard": (settings.pro_max_files, settings.pro_runs_per_day),
+        "pro": (settings.enterprise_max_files, settings.enterprise_runs_per_day),
         "enterprise": (settings.enterprise_max_files, settings.enterprise_runs_per_day),
     }
     _, max_runs = plan_limits.get(user.plan, plan_limits["free"])
@@ -95,6 +98,3 @@ def track_run(user: tables.User, db_session: Session) -> None:
     usage.runs += 1
     db_session.add(usage)
     db_session.commit()
-
-
-from .core.config import settings

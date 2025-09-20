@@ -76,3 +76,29 @@ class PortfolioRunPersisted(PortfolioRunResponse):
     totalCapital: float
     dateRange: tuple[datetime | None, datetime | None] | None
     createdAt: datetime
+
+
+class CheckoutSessionRequest(BaseModel):
+    plan: str
+    interval: Literal["monthly", "annual"]
+
+
+class CheckoutSessionResponse(BaseModel):
+    sessionId: str
+    url: str
+
+
+class FeedbackRequest(BaseModel):
+    message: str
+    email: str | None = None
+
+
+class NpsRequest(BaseModel):
+    score: int = Field(ge=0, le=10)
+    comment: str | None = None
+
+
+class AnalyticsEventRequest(BaseModel):
+    event: str
+    payload: dict[str, str | int | float | bool | None] = Field(default_factory=dict)
+    timestamp: datetime | None = None

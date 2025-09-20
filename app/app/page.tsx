@@ -151,17 +151,12 @@ export default function Home() {
                   </li>
                 ))}
               </ol>
-              <form
-                id="signup"
-                className="landing-inline-form"
-                aria-label="Email capture"
-                onSubmit={(event) => event.preventDefault()}
-              >
+              <form id="signup" className="landing-inline-form" aria-label="Email capture">
                 <label className="sr-only" htmlFor="beta-email">
                   Email address
                 </label>
                 <input id="beta-email" type="email" placeholder="Enter your email to join the beta" required />
-                <button type="submit" className="landing-btn">
+                <button type="button" className="landing-btn">
                   Get early access
                 </button>
               </form>
@@ -194,16 +189,12 @@ export default function Home() {
               <h3 id="cta-heading">Join the early access cohort</h3>
               <p>Spots this month are capped to ensure fast onboarding and support.</p>
             </div>
-            <form
-              className="landing-inline-form"
-              aria-label="Reserve spot"
-              onSubmit={(event) => event.preventDefault()}
-            >
+            <form className="landing-inline-form" aria-label="Reserve spot">
               <label className="sr-only" htmlFor="cta-email">
                 Email address
               </label>
               <input id="cta-email" type="email" placeholder="Email address" required />
-              <button type="submit" className="landing-btn">
+              <button type="button" className="landing-btn">
                 Reserve my spot
               </button>
             </form>
