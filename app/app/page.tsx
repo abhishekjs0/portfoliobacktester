@@ -137,29 +137,46 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="landing-panel">
-              <ol className="landing-stepper">
-                {steps.map((step, index) => (
-                  <li key={step.label} className="landing-step">
-                    <span className="index" aria-hidden="true">
-                      {index + 1}
-                    </span>
-                    <div>
-                      <strong>{step.label}</strong>
-                      <p>{step.copy}</p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-              <form id="signup" className="landing-inline-form" aria-label="Email capture">
-                <label className="sr-only" htmlFor="beta-email">
-                  Email address
-                </label>
-                <input id="beta-email" type="email" placeholder="Enter your email to join the beta" required />
-                <button type="submit" className="landing-btn">
-                  Get early access
-                </button>
-              </form>
+            <div className="landing-panel-column">
+              <div className="landing-panel">
+                <h3 className="landing-panel-title">Upload → Aggregate → Decide</h3>
+                <ul className="landing-feature-list">
+                  <li>Batch import TradingView CSVs with automated validation and tagging.</li>
+                  <li>Aggregate trades respecting capital, concurrency and per-symbol slippage assumptions.</li>
+                  <li>Visualise portfolio equity, drawdown, exposure heatmaps and trade distributions.</li>
+                  <li>Compare strategies side-by-side to find the best combination for your goals.</li>
+                </ul>
+                <div className="landing-panel-cta">
+                  <Link className="landing-btn" href="/backtests?demo=1">
+                    Launch demo workspace
+                  </Link>
+                </div>
+              </div>
+
+              <div className="landing-panel">
+                <ol className="landing-stepper">
+                  {steps.map((step, index) => (
+                    <li key={step.label} className="landing-step">
+                      <span className="index" aria-hidden="true">
+                        {index + 1}
+                      </span>
+                      <div>
+                        <strong>{step.label}</strong>
+                        <p>{step.copy}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+                <form id="signup" className="landing-inline-form" aria-label="Email capture">
+                  <label className="sr-only" htmlFor="beta-email">
+                    Email address
+                  </label>
+                  <input id="beta-email" type="email" placeholder="Enter your email to join the beta" required />
+                  <button type="submit" className="landing-btn">
+                    Get early access
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>

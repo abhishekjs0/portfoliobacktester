@@ -33,12 +33,32 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async session({ session, user }) {
+    async session({ session, user, token }) {
       if (session.user) {
-        session.user.id = user.id;
-        session.user.plan = user.plan as string;
+        const idFromToken = typeof token?.sub === "string" ? token.sub : undefined;
+        session.user.id = user?.id ?? idFromToken ?? session.user.id;
+
+        const planFromUser =
+          user && typeof (user as Record<string, unknown>).plan === "string"
+            ? (user as { plan: string }).plan
+            : undefined;
+        const planFromToken =
+          token && typeof (token as Record<string, unknown>).plan === "string"
+            ? (token as { plan: string }).plan
+            : undefined;
+
+        const plan = planFromUser ?? planFromToken;
+        session.user.plan = plan ?? undefined;
       }
       return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        if (typeof (user as Record<string, unknown>).plan === "string") {
+          token.plan = (user as { plan: string }).plan;
+        }
+      }
+      return token;
     },
   },
 };
