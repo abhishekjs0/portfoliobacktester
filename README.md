@@ -75,7 +75,7 @@ The project shares a single `.env` file for both the FastAPI backend and the Nex
 | Variable | Purpose |
 | --- | --- |
 | `DATABASE_URL` | Postgres connection string used by Prisma and FastAPI (FastAPI automatically upgrades it to the `postgresql+psycopg://` form that SQLAlchemy requires). |
-| `S3_ENDPOINT_URL`, `S3_ACCESS_KEY`, `S3_SECRET_KEY`, `S3_BUCKET` | Object storage configuration for uploaded TradingView CSVs (MinIO or AWS S3). Bucket names must remain lowercase alphanumeric with optional dots or hyphens. |
+| `S3_ENDPOINT_URL`, `S3_ACCESS_KEY`, `S3_SECRET_KEY`, `S3_BUCKET` | Object storage configuration for uploaded TradingView CSVs (MinIO or AWS S3). |
 | `NEXTAUTH_SECRET`, `NEXTAUTH_URL` | Required for NextAuth session encryption and callback URL configuration. |
 | `GOOGLE_*`, `GITHUB_*` | Optional OAuth providers for social login. Leave blank to disable. |
 | `EMAIL_*` | SMTP credentials for passwordless email sign-in (optional). |
