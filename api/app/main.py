@@ -1,15 +1,25 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
 
 from .core.config import settings
-from .routers import uploads, portfolio
+from .core.logging import RequestLoggingMiddleware, configure_logging
+from .core.ratelimit import limiter
+from .routers import uploads, portfolio, users, sessions, backtests, feedback
+
+configure_logging(settings.api_log_level)
 
 app = FastAPI(
     title="Portfolio Backtester API",
     description="Aggregate TradingView strategy CSV exports into equal-weight portfolios.",
     version="0.1.0",
 )
+
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 app.add_middleware(
     CORSMiddleware,
@@ -19,9 +29,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.add_middleware(GZipMiddleware, minimum_size=500)
+app.add_middleware(SlowAPIMiddleware)
+app.add_middleware(RequestLoggingMiddleware)
 
 app.include_router(uploads.router, prefix="/api/uploads", tags=["uploads"])
 app.include_router(portfolio.router, prefix="/api/portfolio", tags=["portfolio"])
+app.include_router(users.router, prefix="/api/users", tags=["users"])
+app.include_router(sessions.router, prefix="/api/sessions", tags=["auth"])
+app.include_router(backtests.router, prefix="/api/backtests", tags=["backtests"])
+app.include_router(feedback.router, prefix="/api/feedback", tags=["feedback"])
 
 
 @app.get("/health", tags=["health"])

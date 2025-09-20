@@ -7,9 +7,12 @@ from sqlalchemy.orm import Session
 
 from . import db
 from .models import tables
+from .services.auth import UserService
+from .services.backtests import BacktestService
+from .services.feedback import FeedbackService
 
 
-async def get_db_session() -> Session:
+def get_db_session() -> Session:
     yield from db.get_db()
 
 
@@ -98,3 +101,20 @@ def track_run(user: tables.User, db_session: Session) -> None:
 
 
 from .core.config import settings
+
+_user_service = UserService()
+_user_service.seed_user(email="user@example.com", password="CorrectPassword123!", name="Demo User")
+_backtest_service = BacktestService()
+_feedback_service = FeedbackService()
+
+
+def get_user_service() -> UserService:
+    return _user_service
+
+
+def get_backtest_service() -> BacktestService:
+    return _backtest_service
+
+
+def get_feedback_service() -> FeedbackService:
+    return _feedback_service
