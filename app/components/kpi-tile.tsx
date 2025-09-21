@@ -7,13 +7,18 @@ type KPIProps = {
   currency?: string;
 };
 
-export function KPITile({ label, value, format = "raw", currency = "USD" }: KPIProps) {
+export function KPITile({
+  label,
+  value,
+  format = "raw",
+  currency = "USD",
+}: KPIProps) {
   const formatted =
     format === "currency"
       ? formatCurrency(value, currency)
       : format === "percent"
-      ? formatPercent(value)
-      : value.toLocaleString();
+        ? formatPercent(value)
+        : value.toLocaleString();
   return (
     <div className="tv-card p-4">
       <p className="tv-subtle">{label}</p>

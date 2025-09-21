@@ -125,7 +125,8 @@ export const pricingPlans = [
     price: "$29",
     cadence: "per month",
     badge: "For power users",
-    description: "Unlimited scale, automation hooks and white-glove onboarding.",
+    description:
+      "Unlimited scale, automation hooks and white-glove onboarding.",
     features: [
       "Unlimited symbols and history",
       "API access & webhook automations",
@@ -139,31 +140,36 @@ export const roadmapMilestones = [
   {
     quarter: "Week 1",
     title: "Requirements & Architecture",
-    description: "Finalize technical design, set up repo, CI and data schemas for TradingView CSV ingestion.",
+    description:
+      "Finalize technical design, set up repo, CI and data schemas for TradingView CSV ingestion.",
     status: "complete",
   },
   {
     quarter: "Week 4",
     title: "Backend Aggregation Engine",
-    description: "Deliver the portfolio merge service that computes P&L, drawdown and metrics for uploaded CSV batches.",
+    description:
+      "Deliver the portfolio merge service that computes P&L, drawdown and metrics for uploaded CSV batches.",
     status: "in-progress",
   },
   {
     quarter: "Week 6",
     title: "Alpha Testing",
-    description: "Invite early users to upload data, capture edge cases and harden parsing logic.",
+    description:
+      "Invite early users to upload data, capture edge cases and harden parsing logic.",
     status: "up-next",
   },
   {
     quarter: "Week 9",
     title: "Marketing & Pricing Rollout",
-    description: "Publish features and pricing pages, integrate analytics and prep for beta launch.",
+    description:
+      "Publish features and pricing pages, integrate analytics and prep for beta launch.",
     status: "planned",
   },
   {
     quarter: "Week 12",
     title: "Public Beta",
-    description: "Scale beta invites, collect testimonials and monitor performance for wider release.",
+    description:
+      "Scale beta invites, collect testimonials and monitor performance for wider release.",
     status: "planned",
   },
 ];

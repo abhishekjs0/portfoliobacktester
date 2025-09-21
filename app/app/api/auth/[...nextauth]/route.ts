@@ -7,9 +7,7 @@ async function getAuthHandler() {
   return NextAuth(options);
 }
 
-const handler = async (
-  ...args: Parameters<ReturnType<typeof NextAuth>>
-) => {
+const handler = async (...args: Parameters<ReturnType<typeof NextAuth>>) => {
   const authHandler = await getAuthHandler();
   return authHandler(...args);
 };

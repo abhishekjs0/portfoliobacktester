@@ -17,7 +17,9 @@ export function DateRangePicker({ onChange }: DateRangePickerProps) {
         type="date"
         className="rounded-md border border-white/10 bg-slate-900/60 px-3 py-2 text-sm focus:border-brand focus:outline-none"
         onChange={(event) => {
-          const value = event.target.value ? new Date(event.target.value) : null;
+          const value = event.target.value
+            ? new Date(event.target.value)
+            : null;
           setStart(value);
           onChange({ start: value, end });
         }}
@@ -27,13 +29,16 @@ export function DateRangePicker({ onChange }: DateRangePickerProps) {
         type="date"
         className="rounded-md border border-white/10 bg-slate-900/60 px-3 py-2 text-sm focus:border-brand focus:outline-none"
         onChange={(event) => {
-          const value = event.target.value ? new Date(event.target.value) : null;
+          const value = event.target.value
+            ? new Date(event.target.value)
+            : null;
           setEnd(value);
           onChange({ start, end: value });
         }}
       />
       <div className="text-xs text-slate-400">
-        {start ? format(start, "MMM d, yyyy") : "Start"} – {end ? format(end, "MMM d, yyyy") : "End"}
+        {start ? format(start, "MMM d, yyyy") : "Start"} –{" "}
+        {end ? format(end, "MMM d, yyyy") : "End"}
       </div>
     </div>
   );

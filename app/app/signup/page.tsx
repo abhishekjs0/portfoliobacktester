@@ -12,7 +12,10 @@ export default function SignupPage() {
         <div className="auth-card">
           <span className="landing-badge">Create account</span>
           <h1>Join the portfolio backtesting beta</h1>
-          <p>Import TradingView CSVs, run multi-symbol backtests and compare strategies without leaving your browser.</p>
+          <p>
+            Import TradingView CSVs, run multi-symbol backtests and compare
+            strategies without leaving your browser.
+          </p>
           {submitted ? (
             <div className="alert alert--success" role="status">
               Thanks! Check your inbox for a confirmation email with next steps.
@@ -31,7 +34,12 @@ export default function SignupPage() {
               </label>
               <label>
                 <span>Email</span>
-                <input type="email" name="email" required autoComplete="email" />
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  autoComplete="email"
+                />
               </label>
               <label>
                 <span>Password</span>

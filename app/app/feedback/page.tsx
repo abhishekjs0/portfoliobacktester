@@ -19,10 +19,14 @@ export default function FeedbackPage() {
         <div className="auth-card feedback-card">
           <span className="landing-badge">We’d love your feedback</span>
           <h1>Help us shape the roadmap</h1>
-          <p>Tell us what’s working, what’s missing and which features would save you the most time.</p>
+          <p>
+            Tell us what’s working, what’s missing and which features would save
+            you the most time.
+          </p>
           {submitted ? (
             <div className="alert alert--success" role="status">
-              Thank you for sharing your thoughts! We’ll be in touch if we have follow-up questions.
+              Thank you for sharing your thoughts! We’ll be in touch if we have
+              follow-up questions.
             </div>
           ) : (
             <form
@@ -34,7 +38,12 @@ export default function FeedbackPage() {
             >
               <label>
                 <span>Your email</span>
-                <input type="email" name="email" required placeholder="you@example.com" />
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="you@example.com"
+                />
               </label>
               <label>
                 <span>What part of the product are you commenting on?</span>
@@ -46,11 +55,24 @@ export default function FeedbackPage() {
               </label>
               <label>
                 <span>How can we improve?</span>
-                <textarea name="message" rows={5} required placeholder="Share details, ideas or frustrations" />
+                <textarea
+                  name="message"
+                  rows={5}
+                  required
+                  placeholder="Share details, ideas or frustrations"
+                />
               </label>
               <label>
-                <span>How likely are you to recommend us to a trading friend?</span>
-                <input type="range" name="nps" min="0" max="10" defaultValue="8" />
+                <span>
+                  How likely are you to recommend us to a trading friend?
+                </span>
+                <input
+                  type="range"
+                  name="nps"
+                  min="0"
+                  max="10"
+                  defaultValue="8"
+                />
               </label>
               <button type="submit" className="button button--primary">
                 Send feedback

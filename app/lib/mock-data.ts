@@ -88,7 +88,8 @@ export const mockBacktests: BacktestRun[] = [
     equityCurve: baselineEquity,
     drawdown: baselineDrawdown,
     tradesTable: baseTrades,
-    notes: "Outperforms benchmark when volatility is moderate; monitor Nvidia weighting.",
+    notes:
+      "Outperforms benchmark when volatility is moderate; monitor Nvidia weighting.",
   },
   {
     id: "fx-carry",
@@ -121,8 +122,12 @@ export const mockBacktests: BacktestRun[] = [
       { timestamp: "2023-09-01", value: -0.012 },
       { timestamp: "2023-12-01", value: -0.02 },
     ],
-    tradesTable: baseTrades.map((trade, index) => ({ ...trade, tradeId: `FX-${index + 1}` })),
-    notes: "Stable carry basket; add risk overlay before going live with higher leverage.",
+    tradesTable: baseTrades.map((trade, index) => ({
+      ...trade,
+      tradeId: `FX-${index + 1}`,
+    })),
+    notes:
+      "Stable carry basket; add risk overlay before going live with higher leverage.",
   },
   {
     id: "multi-strat",
@@ -144,6 +149,7 @@ export const mockBacktests: BacktestRun[] = [
     equityCurve: [],
     drawdown: [],
     tradesTable: [],
-    notes: "Combines long momentum equities with crypto mean reversion—currently running.",
+    notes:
+      "Combines long momentum equities with crypto mean reversion—currently running.",
   },
 ];

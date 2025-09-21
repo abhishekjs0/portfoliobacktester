@@ -6,7 +6,11 @@ import { formatCurrency, formatPercent } from "../../../lib/format";
 import { mockBacktests } from "../../../lib/mock-data";
 import { StrategyEquity } from "./strategy-equity";
 
-export default function StrategyDetailPage({ params }: { params: { id: string } }) {
+export default function StrategyDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const run = mockBacktests.find((item) => item.id === params.id);
   if (!run) {
     notFound();
@@ -19,7 +23,10 @@ export default function StrategyDetailPage({ params }: { params: { id: string } 
           <div>
             <span className="landing-badge">Portfolio result</span>
             <h1>{run.name}</h1>
-            <p>{run.strategy} • {run.symbols.length} symbols • {run.timeframe} timeframe</p>
+            <p>
+              {run.strategy} • {run.symbols.length} symbols • {run.timeframe}{" "}
+              timeframe
+            </p>
             <div className="backtest-card__tags">
               {run.tags.map((tag) => (
                 <span key={tag} className="tag">
@@ -34,20 +41,45 @@ export default function StrategyDetailPage({ params }: { params: { id: string } 
         </header>
 
         {run.equityCurve.length > 0 ? (
-          <StrategyEquity equityCurve={run.equityCurve} drawdown={run.drawdown} />
+          <StrategyEquity
+            equityCurve={run.equityCurve}
+            drawdown={run.drawdown}
+          />
         ) : (
-          <div className="tv-card p-6 text-sm text-slate-300">This backtest is still processing. Check again shortly.</div>
+          <div className="tv-card p-6 text-sm text-slate-300">
+            This backtest is still processing. Check again shortly.
+          </div>
         )}
 
         <section className="strategy-metrics" aria-labelledby="metrics-heading">
           <h2 id="metrics-heading">Key metrics</h2>
           <div className="strategy-metrics__grid">
-            <KPITile label="Net profit" value={run.metrics.netProfit} format="currency" />
-            <KPITile label="Portfolio CAGR" value={run.metrics.cagr} format="percent" />
-            <KPITile label="Max drawdown" value={run.metrics.maxDrawdown} format="percent" />
+            <KPITile
+              label="Net profit"
+              value={run.metrics.netProfit}
+              format="currency"
+            />
+            <KPITile
+              label="Portfolio CAGR"
+              value={run.metrics.cagr}
+              format="percent"
+            />
+            <KPITile
+              label="Max drawdown"
+              value={run.metrics.maxDrawdown}
+              format="percent"
+            />
             <KPITile label="Sharpe" value={run.metrics.sharpe} format="raw" />
-            <KPITile label="Win rate" value={run.metrics.winRate} format="percent" />
-            <KPITile label="Total trades" value={run.metrics.totalTrades} format="raw" />
+            <KPITile
+              label="Win rate"
+              value={run.metrics.winRate}
+              format="percent"
+            />
+            <KPITile
+              label="Total trades"
+              value={run.metrics.totalTrades}
+              format="raw"
+            />
           </div>
         </section>
 
@@ -60,7 +92,10 @@ export default function StrategyDetailPage({ params }: { params: { id: string } 
           <div className="strategy-trades__heading">
             <div>
               <h2 id="trades-heading">Trades preview</h2>
-              <p>First {run.tradesTable.length || "0"} trades from the merged CSVs.</p>
+              <p>
+                First {run.tradesTable.length || "0"} trades from the merged
+                CSVs.
+              </p>
             </div>
             <div className="strategy-trades__totals">
               <span>Total P&L: {formatCurrency(run.metrics.netProfit)}</span>

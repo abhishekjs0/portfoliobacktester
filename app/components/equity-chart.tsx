@@ -13,7 +13,14 @@ import {
 import { useMemo } from "react";
 import { formatDate } from "../lib/format";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend,
+);
 
 type EquityChartProps = {
   equityCurve: Array<{ timestamp: string; value: number }>;
@@ -87,7 +94,7 @@ export function EquityChart({ equityCurve, drawdown }: EquityChartProps) {
         },
       },
     }),
-    []
+    [],
   );
 
   return (

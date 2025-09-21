@@ -7,10 +7,13 @@ export default function FeaturesPage() {
       <header className="marketing-hero">
         <div className="landing-container">
           <span className="landing-badge">Product tour</span>
-          <h1 className="marketing-hero__title">From CSV upload to portfolio clarity in minutes</h1>
+          <h1 className="marketing-hero__title">
+            From CSV upload to portfolio clarity in minutes
+          </h1>
           <p className="marketing-hero__sub">
-            Explore the building blocks that power the multi-symbol backtesting workflow—designed around the exact jobs traders
-            told us they needed to finish.
+            Explore the building blocks that power the multi-symbol backtesting
+            workflow—designed around the exact jobs traders told us they needed
+            to finish.
           </p>
           <div className="marketing-hero__cta">
             <Link href="/backtests?demo=1" className="button button--primary">
@@ -30,7 +33,11 @@ export default function FeaturesPage() {
           </h2>
           <div className="landing-grid" role="list">
             {keyBenefits.map((benefit) => (
-              <article key={benefit.title} className="landing-card" role="listitem">
+              <article
+                key={benefit.title}
+                className="landing-card"
+                role="listitem"
+              >
                 <h3>{benefit.title}</h3>
                 <p>{benefit.description}</p>
               </article>
@@ -69,37 +76,43 @@ export default function FeaturesPage() {
             <article className="card">
               <div className="card__header">Accessible tokens</div>
               <div className="card__body">
-                Color, spacing and typography tokens mirror the design spec so every component—buttons, alerts, tags—stays
-                consistent across marketing pages and in-app dashboards.
+                Color, spacing and typography tokens mirror the design spec so
+                every component—buttons, alerts, tags—stays consistent across
+                marketing pages and in-app dashboards.
               </div>
             </article>
             <article className="card">
               <div className="card__header">Reusable components</div>
               <div className="card__body">
-                Landing hero, KPI grids, flow cards and CTA banners are implemented as composable sections. Reuse them to extend
-                future pages without duplicating code.
+                Landing hero, KPI grids, flow cards and CTA banners are
+                implemented as composable sections. Reuse them to extend future
+                pages without duplicating code.
               </div>
             </article>
             <article className="card">
               <div className="card__header">Responsive layouts</div>
               <div className="card__body">
-                Grid utilities adapt from mobile to widescreen, ensuring traders can review results on desktops, tablets or phones
-                during market hours.
+                Grid utilities adapt from mobile to widescreen, ensuring traders
+                can review results on desktops, tablets or phones during market
+                hours.
               </div>
             </article>
           </div>
         </div>
       </section>
 
-      <section className="marketing-section marketing-section--cta" aria-labelledby="feature-cta">
+      <section
+        className="marketing-section marketing-section--cta"
+        aria-labelledby="feature-cta"
+      >
         <div className="landing-container">
           <div className="landing-cta-box">
             <div>
               <span className="landing-badge">Ready when you are</span>
               <h2 id="feature-cta">Put the workflow to work on your data</h2>
               <p>
-                Bring your TradingView exports, run portfolio simulations instantly and compare strategies without leaving the
-                browser.
+                Bring your TradingView exports, run portfolio simulations
+                instantly and compare strategies without leaving the browser.
               </p>
             </div>
             <div className="marketing-hero__cta">

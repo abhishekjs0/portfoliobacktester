@@ -6,7 +6,12 @@ import { DateRangePicker } from "../../../components/date-range-picker";
 import { EquityChart } from "../../../components/equity-chart";
 import { FileTable } from "../../../components/file-table";
 import { KPITile } from "../../../components/kpi-tile";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../components/ui/tabs";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "../../../components/ui/tabs";
 import { formatCurrency, formatPercent } from "../../../lib/format";
 import { PortfolioRunResponse, runPortfolio } from "../../../lib/api";
 
@@ -15,7 +20,10 @@ export default function DashboardPage() {
   const batchId = searchParams.get("batchId");
   const [capital, setCapital] = useState(100_000);
   const [currency, setCurrency] = useState("USD");
-  const [dateRange, setDateRange] = useState<{ start: Date | null; end: Date | null }>({ start: null, end: null });
+  const [dateRange, setDateRange] = useState<{
+    start: Date | null;
+    end: Date | null;
+  }>({ start: null, end: null });
   const [data, setData] = useState<PortfolioRunResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -29,7 +37,10 @@ export default function DashboardPage() {
         batchId,
         totalCapital: capital,
         currency,
-        dateRange: [dateRange.start?.toISOString() ?? null, dateRange.end?.toISOString() ?? null] as [string | null, string | null],
+        dateRange: [
+          dateRange.start?.toISOString() ?? null,
+          dateRange.end?.toISOString() ?? null,
+        ] as [string | null, string | null],
       };
       const response = await runPortfolio(payload);
       setData(response);
@@ -47,13 +58,28 @@ export default function DashboardPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [batchId]);
 
-  const overviewMetrics = useMemo(() => data?.sections?.overview?.metrics ?? [], [data]);
+  const overviewMetrics = useMemo(
+    () => data?.sections?.overview?.metrics ?? [],
+    [data],
+  );
   const additionalKPIs = useMemo(() => {
     if (!data) return [];
     return [
-      { label: "Annualized P&L %", value: data.kpis["annualized_return_pct"], format: "percent" as const },
-      { label: "Total trade-days", value: data.kpis["total_trade_days"], format: "raw" as const },
-      { label: "Avg trade duration (days)", value: data.kpis["avg_trade_duration_days"], format: "raw" as const },
+      {
+        label: "Annualized P&L %",
+        value: data.kpis["annualized_return_pct"],
+        format: "percent" as const,
+      },
+      {
+        label: "Total trade-days",
+        value: data.kpis["total_trade_days"],
+        format: "raw" as const,
+      },
+      {
+        label: "Avg trade duration (days)",
+        value: data.kpis["avg_trade_duration_days"],
+        format: "raw" as const,
+      },
     ];
   }, [data]);
 
@@ -63,7 +89,8 @@ export default function DashboardPage() {
         <div>
           <h1 className="text-3xl font-bold text-white">Portfolio dashboard</h1>
           <p className="mt-2 max-w-2xl text-slate-300">
-            Equal-capital aggregation across tickers with TradingView-style analytics.
+            Equal-capital aggregation across tickers with TradingView-style
+            analytics.
           </p>
         </div>
         <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
@@ -102,11 +129,17 @@ export default function DashboardPage() {
         </div>
         <div className="tv-card p-5">
           <label className="tv-subtle">Upload</label>
-          <div className="mt-2 text-sm text-slate-200">Batch ID: {batchId ?? "–"}</div>
+          <div className="mt-2 text-sm text-slate-200">
+            Batch ID: {batchId ?? "–"}
+          </div>
         </div>
       </div>
 
-      {error && <div className="mt-6 rounded-md border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-200">{error}</div>}
+      {error && (
+        <div className="mt-6 rounded-md border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-200">
+          {error}
+        </div>
+      )}
 
       {data && (
         <div className="mt-10 space-y-10">
@@ -118,17 +151,31 @@ export default function DashboardPage() {
                   key={metric.label as string}
                   label={metric.label as string}
                   value={Number(metric.value)}
-                  format={metric.label?.toString().includes("%") ? "percent" : metric.label?.toString().includes("P&L") ? "currency" : "raw"}
+                  format={
+                    metric.label?.toString().includes("%")
+                      ? "percent"
+                      : metric.label?.toString().includes("P&L")
+                        ? "currency"
+                        : "raw"
+                  }
                   currency={currency}
                 />
               ))}
               {additionalKPIs.map((metric) => (
-                <KPITile key={metric.label} label={metric.label} value={metric.value} format={metric.format} />
+                <KPITile
+                  key={metric.label}
+                  label={metric.label}
+                  value={metric.value}
+                  format={metric.format}
+                />
               ))}
             </div>
           </section>
 
-          <EquityChart equityCurve={data.equityCurve} drawdown={data.drawdown} />
+          <EquityChart
+            equityCurve={data.equityCurve}
+            drawdown={data.drawdown}
+          />
 
           <Tabs defaultValue="performance" className="w-full">
             <TabsList className="mb-6">
@@ -138,13 +185,22 @@ export default function DashboardPage() {
               <TabsTrigger value="table">List of trades</TabsTrigger>
             </TabsList>
             <TabsContent value="performance">
-              <MetricGrid metrics={data.sections.performance.metrics} currency={currency} />
+              <MetricGrid
+                metrics={data.sections.performance.metrics}
+                currency={currency}
+              />
             </TabsContent>
             <TabsContent value="trades">
-              <MetricGrid metrics={data.sections.tradesAnalysis.metrics} currency={currency} />
+              <MetricGrid
+                metrics={data.sections.tradesAnalysis.metrics}
+                currency={currency}
+              />
             </TabsContent>
             <TabsContent value="risk">
-              <MetricGrid metrics={data.sections.riskRatios.metrics} currency={currency} />
+              <MetricGrid
+                metrics={data.sections.riskRatios.metrics}
+                currency={currency}
+              />
             </TabsContent>
             <TabsContent value="table">
               <FileTable trades={data.tradesTable} />
@@ -170,13 +226,17 @@ function MetricGrid({ metrics, currency }: MetricGridProps) {
         const lower = label.toLowerCase();
         const display = lower.includes("%")
           ? formatPercent(value)
-          : lower.includes("p&l") || lower.includes("profit") || lower.includes("loss")
-          ? formatCurrency(value, currency)
-          : value.toLocaleString();
+          : lower.includes("p&l") ||
+              lower.includes("profit") ||
+              lower.includes("loss")
+            ? formatCurrency(value, currency)
+            : value.toLocaleString();
         return (
           <div key={label} className="tv-card p-4">
             <div className="text-sm text-slate-400">{label}</div>
-            <div className="mt-1 text-xl font-semibold text-white">{display}</div>
+            <div className="mt-1 text-xl font-semibold text-white">
+              {display}
+            </div>
           </div>
         );
       })}

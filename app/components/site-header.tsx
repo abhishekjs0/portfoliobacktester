@@ -12,7 +12,11 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <div className="site-header__inner">
-        <Link href="/" className="site-header__logo" aria-label="Portfolio backtester home">
+        <Link
+          href="/"
+          className="site-header__logo"
+          aria-label="Portfolio backtester home"
+        >
           <span className="site-header__mark" aria-hidden="true" />
           <span className="site-header__title">Portfolio Backtester</span>
         </Link>

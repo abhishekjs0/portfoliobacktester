@@ -14,11 +14,16 @@ export interface PortfolioRunResponse {
   buyHoldCurve: Array<{ timestamp: string; value: number }>;
   drawdown: Array<{ timestamp: string; value: number }>;
   kpis: Record<string, number>;
-  sections: Record<string, { title: string; metrics: Array<Record<string, unknown>> }>;
+  sections: Record<
+    string,
+    { title: string; metrics: Array<Record<string, unknown>> }
+  >;
   tradesTable: Array<Record<string, unknown>>;
 }
 
-const API_BASE = (process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api/proxy/").replace(/\/*$/, "/");
+const API_BASE = (
+  process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api/proxy/"
+).replace(/\/*$/, "/");
 
 export async function uploadFiles(files: File[]): Promise<UploadResponse> {
   const formData = new FormData();
@@ -41,7 +46,9 @@ export interface RunPortfolioPayload {
   dateRange?: [string | null, string | null];
 }
 
-export async function runPortfolio(payload: RunPortfolioPayload): Promise<PortfolioRunResponse> {
+export async function runPortfolio(
+  payload: RunPortfolioPayload,
+): Promise<PortfolioRunResponse> {
   const res = await fetch(`${API_BASE}api/portfolio/run`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -53,7 +60,9 @@ export async function runPortfolio(payload: RunPortfolioPayload): Promise<Portfo
   return res.json();
 }
 
-export async function getPortfolioRuns(batchId: string): Promise<PortfolioRunResponse[]> {
+export async function getPortfolioRuns(
+  batchId: string,
+): Promise<PortfolioRunResponse[]> {
   const res = await fetch(`${API_BASE}api/portfolio/${batchId}`);
   if (!res.ok) {
     throw new Error("Unable to fetch runs");

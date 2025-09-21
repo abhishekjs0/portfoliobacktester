@@ -11,26 +11,30 @@ export default function BacktestsPage() {
   const startDemoSelected = searchParams.get("demo") === "1";
   const [query, setQuery] = useState("");
   const [selectedIds, setSelectedIds] = useState<string[]>(
-    startDemoSelected ? mockBacktests.slice(0, 2).map((run) => run.id) : []
+    startDemoSelected ? mockBacktests.slice(0, 2).map((run) => run.id) : [],
   );
 
   const filtered = useMemo(() => {
     const normalised = query.trim().toLowerCase();
     if (!normalised) return mockBacktests;
     return mockBacktests.filter((run) => {
-      const haystack = [run.name, run.strategy, run.symbols.join(" ")].join(" ").toLowerCase();
+      const haystack = [run.name, run.strategy, run.symbols.join(" ")]
+        .join(" ")
+        .toLowerCase();
       return haystack.includes(normalised);
     });
   }, [query]);
 
   const selectedRuns = useMemo(
     () => mockBacktests.filter((run) => selectedIds.includes(run.id)),
-    [selectedIds]
+    [selectedIds],
   );
 
   const toggleSelection = (id: string) => {
     setSelectedIds((current) =>
-      current.includes(id) ? current.filter((item) => item !== id) : [...current, id]
+      current.includes(id)
+        ? current.filter((item) => item !== id)
+        : [...current, id],
     );
   };
 
@@ -41,7 +45,10 @@ export default function BacktestsPage() {
           <div>
             <span className="landing-badge">Portfolio runs</span>
             <h1>Review backtests and compare strategies</h1>
-            <p>Monitor completed uploads, queue new simulations and overlay performance to find the portfolio mix that wins.</p>
+            <p>
+              Monitor completed uploads, queue new simulations and overlay
+              performance to find the portfolio mix that wins.
+            </p>
           </div>
           <Link href="/upload" className="button button--primary">
             New backtest
@@ -81,8 +88,14 @@ export default function BacktestsPage() {
                     <p>{run.strategy}</p>
                   </div>
                 </div>
-                <span className={`tag ${run.status !== "complete" ? "tag--warning" : "tag--success"}`}>
-                  {run.status === "complete" ? "Complete" : run.status === "processing" ? "Processing" : "Queued"}
+                <span
+                  className={`tag ${run.status !== "complete" ? "tag--warning" : "tag--success"}`}
+                >
+                  {run.status === "complete"
+                    ? "Complete"
+                    : run.status === "processing"
+                      ? "Processing"
+                      : "Queued"}
                 </span>
               </header>
               <div className="backtest-card__meta">
@@ -116,7 +129,10 @@ export default function BacktestsPage() {
                     </span>
                   ))}
                 </div>
-                <Link href={`/strategy/${run.id}`} className="button button--outline">
+                <Link
+                  href={`/strategy/${run.id}`}
+                  className="button button--outline"
+                >
                   View details
                 </Link>
               </footer>
@@ -125,15 +141,22 @@ export default function BacktestsPage() {
         </div>
 
         {selectedRuns.length >= 2 && (
-          <section className="comparison-panel" aria-labelledby="comparison-heading">
+          <section
+            className="comparison-panel"
+            aria-labelledby="comparison-heading"
+          >
             <div className="comparison-header">
               <h2 id="comparison-heading">Side-by-side comparison</h2>
               <p>
-                {selectedRuns.length} runs selected. Toggle the checkboxes above to add or remove strategies from this view.
+                {selectedRuns.length} runs selected. Toggle the checkboxes above
+                to add or remove strategies from this view.
               </p>
             </div>
             <div className="comparison-table" role="table">
-              <div className="comparison-table__row comparison-table__row--head" role="row">
+              <div
+                className="comparison-table__row comparison-table__row--head"
+                role="row"
+              >
                 <div role="columnheader">Metric</div>
                 {selectedRuns.map((run) => (
                   <div key={run.id} role="columnheader">
@@ -141,12 +164,34 @@ export default function BacktestsPage() {
                   </div>
                 ))}
               </div>
-              {renderMetricRow("Net profit", selectedRuns.map((run) => formatCurrency(run.metrics.netProfit)))}
-              {renderMetricRow("CAGR", selectedRuns.map((run) => formatPercent(run.metrics.cagr)))}
-              {renderMetricRow("Max drawdown", selectedRuns.map((run) => formatPercent(run.metrics.maxDrawdown)))}
-              {renderMetricRow("Sharpe", selectedRuns.map((run) => run.metrics.sharpe.toFixed(2)))}
-              {renderMetricRow("Win rate", selectedRuns.map((run) => formatPercent(run.metrics.winRate)))}
-              {renderMetricRow("Total trades", selectedRuns.map((run) => run.metrics.totalTrades.toString()))}
+              {renderMetricRow(
+                "Net profit",
+                selectedRuns.map((run) =>
+                  formatCurrency(run.metrics.netProfit),
+                ),
+              )}
+              {renderMetricRow(
+                "CAGR",
+                selectedRuns.map((run) => formatPercent(run.metrics.cagr)),
+              )}
+              {renderMetricRow(
+                "Max drawdown",
+                selectedRuns.map((run) =>
+                  formatPercent(run.metrics.maxDrawdown),
+                ),
+              )}
+              {renderMetricRow(
+                "Sharpe",
+                selectedRuns.map((run) => run.metrics.sharpe.toFixed(2)),
+              )}
+              {renderMetricRow(
+                "Win rate",
+                selectedRuns.map((run) => formatPercent(run.metrics.winRate)),
+              )}
+              {renderMetricRow(
+                "Total trades",
+                selectedRuns.map((run) => run.metrics.totalTrades.toString()),
+              )}
             </div>
           </section>
         )}

@@ -6,7 +6,11 @@ interface FileTableProps {
 
 export function FileTable({ trades }: FileTableProps) {
   if (!trades.length) {
-    return <div className="tv-card p-6 text-sm text-slate-400">No trades in range.</div>;
+    return (
+      <div className="tv-card p-6 text-sm text-slate-400">
+        No trades in range.
+      </div>
+    );
   }
 
   const headers = Object.keys(trades[0] ?? {});
@@ -17,7 +21,10 @@ export function FileTable({ trades }: FileTableProps) {
         <thead className="bg-white/5">
           <tr>
             {headers.map((header) => (
-              <th key={header} className="px-4 py-2 text-left font-semibold uppercase tracking-wide text-xs text-slate-300">
+              <th
+                key={header}
+                className="px-4 py-2 text-left font-semibold uppercase tracking-wide text-xs text-slate-300"
+              >
                 {header}
               </th>
             ))}
@@ -29,16 +36,28 @@ export function FileTable({ trades }: FileTableProps) {
               {headers.map((header) => {
                 const value = trade[header];
                 if (typeof value === "number") {
-                  if (header.toLowerCase().includes("p&l") || header.toLowerCase().includes("price")) {
+                  if (
+                    header.toLowerCase().includes("p&l") ||
+                    header.toLowerCase().includes("price")
+                  ) {
                     return (
-                      <td key={header} className="px-4 py-2 text-right font-mono">
+                      <td
+                        key={header}
+                        className="px-4 py-2 text-right font-mono"
+                      >
                         {formatCurrency(value)}
                       </td>
                     );
                   }
-                  if (header.toLowerCase().includes("run") || header.toLowerCase().includes("drawdown")) {
+                  if (
+                    header.toLowerCase().includes("run") ||
+                    header.toLowerCase().includes("drawdown")
+                  ) {
                     return (
-                      <td key={header} className="px-4 py-2 text-right font-mono">
+                      <td
+                        key={header}
+                        className="px-4 py-2 text-right font-mono"
+                      >
                         {formatCurrency(value)}
                       </td>
                     );
@@ -51,7 +70,10 @@ export function FileTable({ trades }: FileTableProps) {
                 }
                 if (typeof value === "string" && value.includes("T")) {
                   return (
-                    <td key={header} className="px-4 py-2 whitespace-nowrap text-slate-200">
+                    <td
+                      key={header}
+                      className="px-4 py-2 whitespace-nowrap text-slate-200"
+                    >
                       {formatDate(value)}
                     </td>
                   );

@@ -2,7 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 const apiBase = process.env.FASTAPI_URL ?? "http://localhost:8000";
 
-async function proxy(req: NextRequest, { params }: { params: { path: string[] } }) {
+async function proxy(
+  req: NextRequest,
+  { params }: { params: { path: string[] } },
+) {
   const targetPath = params.path.join("/");
   const search = req.nextUrl.search;
   const url = `${apiBase}/${targetPath}${search}`;
@@ -24,4 +27,10 @@ async function proxy(req: NextRequest, { params }: { params: { path: string[] } 
   });
 }
 
-export { proxy as GET, proxy as POST, proxy as PUT, proxy as PATCH, proxy as DELETE };
+export {
+  proxy as GET,
+  proxy as POST,
+  proxy as PUT,
+  proxy as PATCH,
+  proxy as DELETE,
+};

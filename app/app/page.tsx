@@ -37,15 +37,23 @@ export default function Home() {
       <section className="landing-hero" aria-labelledby="hero-heading">
         <div className="landing-container landing-hero__layout">
           <div className="landing-hero__content">
-            <span className="landing-badge">Built for TradingView power-users</span>
+            <span className="landing-badge">
+              Built for TradingView power-users
+            </span>
             <h1 id="hero-heading" className="landing-hero-title">
               Backtest entire portfolios in one click
             </h1>
             <p className="landing-hero-sub">
-              Tired of running your strategy one symbol at a time? Upload TradingView CSVs and watch our cloud engine crunch 20+
-              symbols in seconds. Discover true portfolio performance without code, spreadsheets or guesswork.
+              Tired of running your strategy one symbol at a time? Upload
+              TradingView CSVs and watch our cloud engine crunch 20+ symbols in
+              seconds. Discover true portfolio performance without code,
+              spreadsheets or guesswork.
             </p>
-            <div className="landing-hero-cta" role="group" aria-label="Primary call to action">
+            <div
+              className="landing-hero-cta"
+              role="group"
+              aria-label="Primary call to action"
+            >
               <Link className="button button--primary" href="/backtests?demo=1">
                 Try on demo data
               </Link>
@@ -53,9 +61,15 @@ export default function Home() {
                 Upload your first CSV
               </Link>
             </div>
-            <p className="landing-hero-note">No credit card required • Works with any TradingView strategy export</p>
+            <p className="landing-hero-note">
+              No credit card required • Works with any TradingView strategy
+              export
+            </p>
           </div>
-          <div className="landing-hero__panel" aria-label="Portfolio summary mock">
+          <div
+            className="landing-hero__panel"
+            aria-label="Portfolio summary mock"
+          >
             <div className="landing-kpi-grid">
               <div className="landing-kpi">
                 <span className="label">Portfolio CAGR</span>
@@ -74,12 +88,16 @@ export default function Home() {
                 <span className="value">54%</span>
               </div>
             </div>
-            <div className="landing-chart-placeholder" role="img" aria-label="Portfolio equity curve placeholder">
+            <div
+              className="landing-chart-placeholder"
+              role="img"
+              aria-label="Portfolio equity curve placeholder"
+            >
               Portfolio Equity Curve Placeholder
             </div>
             <p className="landing-panel-copy">
-              Combine trades across tickers, respect capital constraints and reveal the equity curve that matches how you really
-              trade.
+              Combine trades across tickers, respect capital constraints and
+              reveal the equity curve that matches how you really trade.
             </p>
           </div>
         </div>
@@ -93,14 +111,22 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="landing-section" id="benefits" aria-labelledby="benefits-heading">
+      <section
+        className="landing-section"
+        id="benefits"
+        aria-labelledby="benefits-heading"
+      >
         <div className="landing-container">
           <h2 id="benefits-heading" className="landing-section-title">
             Why traders are switching
           </h2>
           <div className="landing-grid" role="list">
             {keyBenefits.map((benefit) => (
-              <article key={benefit.title} className="landing-card" role="listitem">
+              <article
+                key={benefit.title}
+                className="landing-card"
+                role="listitem"
+              >
                 <h3>{benefit.title}</h3>
                 <p>{benefit.description}</p>
               </article>
@@ -109,14 +135,22 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="landing-section" id="pain" aria-labelledby="pain-heading">
+      <section
+        className="landing-section"
+        id="pain"
+        aria-labelledby="pain-heading"
+      >
         <div className="landing-container">
           <h2 id="pain-heading" className="landing-section-title">
             The current workaround is broken
           </h2>
           <div className="landing-grid" role="list">
             {painPoints.map((pain) => (
-              <article key={pain.title} className="landing-benefit" role="listitem">
+              <article
+                key={pain.title}
+                className="landing-benefit"
+                role="listitem"
+              >
                 <h4>{pain.title}</h4>
                 <p>{pain.description}</p>
               </article>
@@ -125,7 +159,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="landing-section" id="flows" aria-labelledby="flow-heading">
+      <section
+        className="landing-section"
+        id="flows"
+        aria-labelledby="flow-heading"
+      >
         <div className="landing-container">
           <h2 id="flow-heading" className="landing-section-title">
             Designed for seamless multi-symbol workflows
@@ -146,7 +184,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="landing-section" id="demo" aria-labelledby="demo-heading">
+      <section
+        className="landing-section"
+        id="demo"
+        aria-labelledby="demo-heading"
+      >
         <div className="landing-container">
           <h2 id="demo-heading" className="landing-section-title">
             See the full portfolio picture instantly
@@ -171,21 +213,40 @@ export default function Home() {
                   <span className="value">Apr ‘23</span>
                 </div>
               </div>
-              <div className="landing-chart-placeholder" role="img" aria-label="Comparison chart placeholder">
+              <div
+                className="landing-chart-placeholder"
+                role="img"
+                aria-label="Comparison chart placeholder"
+              >
                 Strategy Comparison Placeholder
               </div>
               <p className="landing-panel-copy">
-                Contrast strategies, toggle symbols on/off and export summary packs ready for investors or prop firm reviews.
+                Contrast strategies, toggle symbols on/off and export summary
+                packs ready for investors or prop firm reviews.
               </p>
             </div>
 
             <div className="landing-panel">
-              <h3 className="landing-panel-title">Upload → Aggregate → Decide</h3>
+              <h3 className="landing-panel-title">
+                Upload → Aggregate → Decide
+              </h3>
               <ul className="landing-feature-list">
-                <li>Batch import TradingView CSVs with automated validation and tagging.</li>
-                <li>Aggregate trades respecting capital, concurrency and per-symbol slippage assumptions.</li>
-                <li>Visualise portfolio equity, drawdown, exposure heatmaps and trade distributions.</li>
-                <li>Compare strategies side-by-side to find the best combination for your goals.</li>
+                <li>
+                  Batch import TradingView CSVs with automated validation and
+                  tagging.
+                </li>
+                <li>
+                  Aggregate trades respecting capital, concurrency and
+                  per-symbol slippage assumptions.
+                </li>
+                <li>
+                  Visualise portfolio equity, drawdown, exposure heatmaps and
+                  trade distributions.
+                </li>
+                <li>
+                  Compare strategies side-by-side to find the best combination
+                  for your goals.
+                </li>
               </ul>
               <Link className="button button--primary" href="/backtests?demo=1">
                 Launch demo workspace
@@ -217,13 +278,25 @@ export default function Home() {
             <div>
               <span className="landing-badge">Limited beta</span>
               <h3 id="cta-heading">Join the early access cohort</h3>
-              <p>Spots this month are capped to ensure fast onboarding and support.</p>
+              <p>
+                Spots this month are capped to ensure fast onboarding and
+                support.
+              </p>
             </div>
-            <div className="landing-inline-form" role="form" aria-label="Reserve spot">
+            <div
+              className="landing-inline-form"
+              role="form"
+              aria-label="Reserve spot"
+            >
               <label className="sr-only" htmlFor="cta-email">
                 Email address
               </label>
-              <input id="cta-email" type="email" placeholder="Email address" required />
+              <input
+                id="cta-email"
+                type="email"
+                placeholder="Email address"
+                required
+              />
               <button type="button" className="landing-btn">
                 Reserve my spot
               </button>

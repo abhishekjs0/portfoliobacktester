@@ -2,11 +2,17 @@
 
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { PortfolioRunResponse, RunPortfolioPayload, uploadFiles, runPortfolio } from "../api";
+import {
+  PortfolioRunResponse,
+  RunPortfolioPayload,
+  uploadFiles,
+  runPortfolio,
+} from "../api";
 
 export function usePortfolioData() {
   const [batchId, setBatchId] = useState<string | null>(null);
-  const [uploadSummary, setUploadSummary] = useState<PortfolioRunResponse | null>(null);
+  const [uploadSummary, setUploadSummary] =
+    useState<PortfolioRunResponse | null>(null);
 
   const uploadMutation = useMutation({
     mutationFn: uploadFiles,

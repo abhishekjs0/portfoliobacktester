@@ -7,7 +7,8 @@ export function SiteFooter() {
         <div>
           <h2 className="site-footer__title">Portfolio Backtester</h2>
           <p className="site-footer__copy">
-            The missing multi-symbol backtesting layer for TradingView power-users. Upload CSVs, aggregate instantly and act with
+            The missing multi-symbol backtesting layer for TradingView
+            power-users. Upload CSVs, aggregate instantly and act with
             confidence.
           </p>
         </div>
@@ -46,7 +47,10 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="site-footer__meta">
-        <p>© {new Date().getFullYear()} Portfolio Backtester. All rights reserved.</p>
+        <p>
+          © {new Date().getFullYear()} Portfolio Backtester. All rights
+          reserved.
+        </p>
         <div className="site-footer__meta-links">
           <Link href="#">Terms</Link>
           <Link href="#">Privacy</Link>

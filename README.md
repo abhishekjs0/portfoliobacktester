@@ -3,6 +3,7 @@
 Portfolio Backtester automates multi-symbol TradingView strategy aggregation. Upload many “List of trades” CSV exports at once, run equal-capital portfolio math, and review a TradingView-like dashboard that mirrors familiar KPIs, reports, and equity curves.
 
 ## Features
+
 - Next.js 14 + Tailwind + shadcn/ui-inspired components for a TradingView-style dashboard
 - FastAPI backend with Pandas/NumPy powered portfolio analytics
 - Equal-capital portfolio compounding, daily aligned equity curves, CAGR approximation, and TradingView report parity
@@ -11,6 +12,7 @@ Portfolio Backtester automates multi-symbol TradingView strategy aggregation. Up
 - Docker Compose stack with nginx reverse proxy, seeded demo data, and Playwright/FastAPI tests
 
 ## Repository Layout
+
 ```
 app/        # Next.js frontend
 api/        # FastAPI backend services
@@ -61,14 +63,13 @@ The Docker entrypoints automatically install dependencies, apply migrations (see
 
 The project shares a single `.env` file for both the FastAPI backend and the Next.js frontend. The sample `.env.example` includes sensible defaults for local Docker Compose usage:
 
-| Variable | Purpose |
-| --- | --- |
-| `DATABASE_URL` | Postgres connection string used by Prisma and FastAPI (FastAPI automatically upgrades it to the `postgresql+psycopg://` form that SQLAlchemy requires). |
-| `S3_ENDPOINT_URL`, `S3_ACCESS_KEY`, `S3_SECRET_KEY`, `S3_BUCKET` | Object storage configuration for uploaded TradingView CSVs (MinIO or AWS S3). |
-| `NEXTAUTH_SECRET`, `NEXTAUTH_URL` | Required for NextAuth session encryption and callback URL configuration. |
-| `GOOGLE_*`, `GITHUB_*` | Optional OAuth providers for social login. Leave blank to disable. |
-| `EMAIL_*` | SMTP credentials for passwordless email sign-in (optional). |
-| `NEXT_PUBLIC_API_BASE_URL`, `FASTAPI_URL` | URLs the frontend uses to talk to the FastAPI API. Update to match your deployment hostnames. |
+| Variable                                                         | Purpose                                                                                                                                                 |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DATABASE_URL`                                                   | Postgres connection string used by Prisma and FastAPI (FastAPI automatically upgrades it to the `postgresql+psycopg://` form that SQLAlchemy requires). |
+| `S3_ENDPOINT_URL`, `S3_ACCESS_KEY`, `S3_SECRET_KEY`, `S3_BUCKET` | Object storage configuration for uploaded TradingView CSVs (MinIO or AWS S3).                                                                           |
+| `NEXTAUTH_SECRET`, `NEXTAUTH_URL`                                | Required for NextAuth session encryption and callback URL configuration.                                                                                |
+| `GOOGLE_*`, `GITHUB_*`                                           | Optional OAuth providers for social login. Leave blank to disable.                                                                                      |
+| `EMAIL_*`                                                        | SMTP credentials for passwordless email sign-in (optional).                                                                                             |
+| `NEXT_PUBLIC_API_BASE_URL`, `FASTAPI_URL`                        | URLs the frontend uses to talk to the FastAPI API. Update to match your deployment hostnames.                                                           |
 
 Copy `.env.example` to `.env` before running any of the services, and populate the placeholders with the credentials for your server. When running the Next.js dev server outside Docker, duplicate the file to `app/.env.local` (or export the variables in your shell) so that Prisma and NextAuth receive the same configuration. In that scenario the Postgres host should typically be `localhost` instead of the Docker service name `postgres`.
-

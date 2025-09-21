@@ -13,7 +13,10 @@ export default function LoginPage() {
         <div className="auth-card">
           <span className="landing-badge">Welcome back</span>
           <h1>Log in to continue your research</h1>
-          <p>Access saved backtests, compare strategies and manage your subscription.</p>
+          <p>
+            Access saved backtests, compare strategies and manage your
+            subscription.
+          </p>
           {success ? (
             <div className="alert alert--success" role="status">
               You are logged in. Redirecting to dashboard…
@@ -34,7 +37,12 @@ export default function LoginPage() {
             >
               <label>
                 <span>Email</span>
-                <input type="email" name="email" required autoComplete="email" />
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  autoComplete="email"
+                />
               </label>
               <label>
                 <span>Password</span>

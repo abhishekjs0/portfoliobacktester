@@ -9,10 +9,12 @@ export default function PricingPage() {
       <header className="marketing-hero">
         <div className="landing-container">
           <span className="landing-badge">Simple pricing</span>
-          <h1 className="marketing-hero__title">Flexible plans for every stage of your trading journey</h1>
+          <h1 className="marketing-hero__title">
+            Flexible plans for every stage of your trading journey
+          </h1>
           <p className="marketing-hero__sub">
-            Start free, upgrade when you need higher symbol limits, automation or advanced analytics. No contracts, cancel any
-            time.
+            Start free, upgrade when you need higher symbol limits, automation
+            or advanced analytics. No contracts, cancel any time.
           </p>
           <div className="marketing-hero__cta">
             <Link href="/signup" className="button button--primary">
@@ -45,8 +47,13 @@ export default function PricingPage() {
                     <li key={feature}>{feature}</li>
                   ))}
                 </ul>
-                <Link href="/signup" className="button button--primary plan-card__cta">
-                  {plan.name === "Free" ? "Create free account" : `Upgrade to ${plan.name}`}
+                <Link
+                  href="/signup"
+                  className="button button--primary plan-card__cta"
+                >
+                  {plan.name === "Free"
+                    ? "Create free account"
+                    : `Upgrade to ${plan.name}`}
                 </Link>
               </article>
             ))}
@@ -70,15 +77,26 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="marketing-section marketing-section--cta" aria-labelledby="pricing-cta">
+      <section
+        className="marketing-section marketing-section--cta"
+        aria-labelledby="pricing-cta"
+      >
         <div className="landing-container">
           <div className="landing-cta-box">
             <div>
               <span className="landing-badge">Need a custom plan?</span>
-              <h2 id="pricing-cta">Talk to us about enterprise or prop-firm deployments</h2>
-              <p>White-label options, API quotas and dedicated support available for desks that need custom agreements.</p>
+              <h2 id="pricing-cta">
+                Talk to us about enterprise or prop-firm deployments
+              </h2>
+              <p>
+                White-label options, API quotas and dedicated support available
+                for desks that need custom agreements.
+              </p>
             </div>
-            <Link href="mailto:hello@portfoliobacktester.com" className="button button--outline">
+            <Link
+              href="mailto:hello@portfoliobacktester.com"
+              className="button button--outline"
+            >
               Contact sales
             </Link>
           </div>
