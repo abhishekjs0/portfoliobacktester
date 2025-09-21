@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import date, datetime
 from typing import Literal, Optional
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, EmailStr
 
 
 class FileUploadSummary(BaseModel):
@@ -30,6 +30,28 @@ class FileIngestReport(BaseModel):
     warnings: list[str] = []
 
 
+class UserCreate(BaseModel):
+    email: EmailStr
+    password: str
+    name: str | None = None
+
+
+class UserOut(BaseModel):
+    id: int
+    email: EmailStr
+    name: str | None = None
+
+
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str
+
+
+class SessionOut(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+
+
 class TradeRow(BaseModel):
     trade_number: int = Field(alias="Trade #")
     trade_type: Literal["Long", "Short"] = Field(alias="Type (Long/Short)")
@@ -41,6 +63,29 @@ class TradeRow(BaseModel):
     runup: float = Field(alias="Run-up")
     drawdown: float = Field(alias="Drawdown")
     cumulative_pnl: float = Field(alias="Cumulative P&L")
+
+
+class BacktestRequest(BaseModel):
+    strategy: str
+    symbols: list[str]
+    start_date: date
+    end_date: date
+    parameters: dict[str, float | int | str | None] = Field(default_factory=dict)
+
+
+class BacktestResult(BaseModel):
+    backtest_id: str
+    status: str
+    strategy: str | None = None
+
+
+class FeedbackIn(BaseModel):
+    message: str = Field(min_length=1)
+    rating: int | None = Field(default=None, ge=1, le=5)
+
+
+class FeedbackResponse(BaseModel):
+    detail: str
 
 
 class PortfolioRunRequest(BaseModel):

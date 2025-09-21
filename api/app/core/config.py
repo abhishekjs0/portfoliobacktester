@@ -70,7 +70,6 @@ class Settings(BaseSettings):
             PermissiveDotEnvSettingsSource(settings_cls),
             file_secret_settings,
         )
-
     @property
     def sqlalchemy_database_url(self) -> str:
         """Return a SQLAlchemy-compatible DSN, coercing the driver if needed."""
