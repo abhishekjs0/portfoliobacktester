@@ -16,6 +16,7 @@ from sqlalchemy import (
     String,
     Text,
     UniqueConstraint,
+    func,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -95,6 +96,127 @@ class UsageLog(Base):
     __table_args__ = (UniqueConstraint("user_id", "date", name="uq_usage_user_date"),)
 
 
+<<<<<<< HEAD
+class Plan(Base):
+    __tablename__ = "plans"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    name: Mapped[str] = mapped_column(Text, unique=True, nullable=False)
+    price_cents: Mapped[int] = mapped_column(Integer, nullable=False)
+    features: Mapped[dict | None] = mapped_column(JSON, default=dict)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
+
+    users: Mapped[list[SaaSUser]] = relationship(back_populates="plan")
+
+
+class SaaSUser(Base):
+    __tablename__ = "users"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    plan_id: Mapped[int] = mapped_column(ForeignKey("plans.id", ondelete="RESTRICT"), nullable=False)
+    name: Mapped[str] = mapped_column(Text, nullable=False)
+    email: Mapped[str] = mapped_column(Text, unique=True, nullable=False)
+    password_hash: Mapped[str] = mapped_column(Text, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
+
+    plan: Mapped[Plan] = relationship(back_populates="users")
+    leads: Mapped[list[Lead]] = relationship(back_populates="user", cascade="all, delete-orphan")
+    strategies: Mapped[list[Strategy]] = relationship(
+        back_populates="user", cascade="all, delete-orphan"
+    )
+    uploads: Mapped[list[Upload]] = relationship(back_populates="user", cascade="all, delete-orphan")
+    backtests: Mapped[list[Backtest]] = relationship(
+        back_populates="user", cascade="all, delete-orphan"
+    )
+    feedback_entries: Mapped[list[Feedback]] = relationship(back_populates="user")
+
+
+class Lead(Base):
+    __tablename__ = "leads"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int | None] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
+    name: Mapped[str | None] = mapped_column(Text)
+    email: Mapped[str | None] = mapped_column(Text)
+    message: Mapped[str | None] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+    user: Mapped[SaaSUser | None] = relationship(back_populates="leads")
+
+
+class Strategy(Base):
+    __tablename__ = "strategies"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    name: Mapped[str] = mapped_column(Text, nullable=False)
+    code: Mapped[str] = mapped_column(Text, nullable=False)
+    description: Mapped[str | None] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
+
+    user: Mapped[SaaSUser] = relationship(back_populates="strategies")
+    backtests: Mapped[list[Backtest]] = relationship(back_populates="strategy")
+
+    __table_args__ = (UniqueConstraint("user_id", "name", name="uq_strategy_user_name"),)
+
+
+class Upload(Base):
+    __tablename__ = "uploads"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    filename: Mapped[str] = mapped_column(Text, nullable=False)
+    s3_key: Mapped[str] = mapped_column(Text, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+    user: Mapped[SaaSUser] = relationship(back_populates="uploads")
+    backtests: Mapped[list[Backtest]] = relationship(back_populates="upload")
+
+    __table_args__ = (UniqueConstraint("user_id", "s3_key", name="uq_upload_user_object"),)
+
+
+class Backtest(Base):
+    __tablename__ = "backtests"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    strategy_id: Mapped[int] = mapped_column(ForeignKey("strategies.id", ondelete="CASCADE"), nullable=False)
+    upload_id: Mapped[int | None] = mapped_column(
+        ForeignKey("uploads.id", ondelete="SET NULL"), nullable=True
+    )
+    start_date: Mapped[date | None] = mapped_column(Date)
+    end_date: Mapped[date | None] = mapped_column(Date)
+    result_json: Mapped[dict | None] = mapped_column(JSON, default=dict)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
+
+    user: Mapped[SaaSUser] = relationship(back_populates="backtests")
+    strategy: Mapped[Strategy] = relationship(back_populates="backtests")
+    upload: Mapped[Upload | None] = relationship(back_populates="backtests")
+
+
+class Feedback(Base):
+    __tablename__ = "feedback"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
+    message: Mapped[str] = mapped_column(Text, nullable=False)
+    rating: Mapped[int | None] = mapped_column(Integer)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+    user: Mapped[SaaSUser | None] = relationship(back_populates="feedback_entries")
+=======
 class Subscription(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     user_id: Mapped[str] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"))
@@ -127,3 +249,4 @@ class AnalyticsEvent(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)
 
     user: Mapped[User | None] = relationship(back_populates="analytics_events")
+>>>>>>> origin/main

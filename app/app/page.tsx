@@ -95,6 +95,23 @@ export default function Home() {
 
       <section className="landing-section" id="benefits" aria-labelledby="benefits-heading">
         <div className="landing-container">
+<<<<<<< HEAD
+          <span className="landing-badge">Portfolio Backtesting Workspace</span>
+          <h1 id="hero-heading" className="landing-hero-title">
+            Go from single-symbol guesses to true portfolio intelligence
+          </h1>
+          <p className="landing-hero-sub">
+            Run multi-symbol simulations, see combined equity curves, and optimize allocations in minutes. No more
+            tab-hopping or spreadsheet stitching.
+          </p>
+          <div className="landing-hero-cta" role="group" aria-label="Primary call to action">
+            <Link className="landing-btn" href="/upload" data-analytics-event="hero_start_trial">
+              Start free – 14 days
+            </Link>
+            <a className="landing-btn secondary" href="#how" data-analytics-event="hero_scroll_how">
+              See how it works
+            </a>
+=======
           <h2 id="benefits-heading" className="landing-section-title">
             Why traders are switching
           </h2>
@@ -105,6 +122,7 @@ export default function Home() {
                 <p>{benefit.description}</p>
               </article>
             ))}
+>>>>>>> origin/main
           </div>
         </div>
       </section>
@@ -240,8 +258,22 @@ export default function Home() {
                 <label className="sr-only" htmlFor="beta-email">
                   Email address
                 </label>
+<<<<<<< HEAD
+                <input
+                  id="beta-email"
+                  type="email"
+                  placeholder="Enter your email to join the beta"
+                  required
+                  aria-describedby="signup-helper"
+                />
+                <span id="signup-helper" className="sr-only">
+                  We will email you onboarding materials and will not share your address.
+                </span>
+                <button type="submit" className="landing-btn" data-analytics-event="beta_request">
+=======
                 <input id="beta-email" type="email" placeholder="Enter your email to join the beta" required />
                 <button type="button" className="landing-btn">
+>>>>>>> origin/main
                   Get early access
                 </button>
               </form>
@@ -299,8 +331,20 @@ export default function Home() {
               <label className="sr-only" htmlFor="cta-email">
                 Email address
               </label>
+<<<<<<< HEAD
+              <input
+                id="cta-email"
+                type="email"
+                placeholder="Email address"
+                required
+                aria-describedby="cta-helper"
+              />
+              <span id="cta-helper" className="sr-only">We send only onboarding details.</span>
+              <button type="submit" className="landing-btn" data-analytics-event="cta_waitlist">
+=======
               <input id="cta-email" type="email" placeholder="Email address" required />
               <button type="button" className="landing-btn">
+>>>>>>> origin/main
                 Reserve my spot
               </button>
             </div>

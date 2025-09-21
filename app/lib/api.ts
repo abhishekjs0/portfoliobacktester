@@ -22,6 +22,15 @@ export type BillingInterval = "monthly" | "annual";
 
 const API_BASE = (process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api/proxy/").replace(/\/*$/, "/");
 
+export interface ParsedFileSummary {
+  fileName: string;
+  sampleCount: number;
+  meanReturn: number;
+  sharpeRatio: number;
+  maxDrawdown: number;
+  priceColumn: string | null;
+}
+
 export async function uploadFiles(files: File[]): Promise<UploadResponse> {
   const formData = new FormData();
   files.forEach((file) => formData.append("files", file));
@@ -63,6 +72,28 @@ export async function getPortfolioRuns(batchId: string): Promise<PortfolioRunRes
   return res.json();
 }
 
+<<<<<<< HEAD
+export async function shareParsedSummary(summaries: ParsedFileSummary[]): Promise<void> {
+  if (summaries.length === 0) return;
+  await fetch("/api/uploads/summary", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ summaries }),
+    keepalive: true,
+  });
+}
+
+export async function trackEvent(name: string, details: Record<string, unknown> = {}): Promise<void> {
+  try {
+    await fetch("/api/track", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event: name, details, url: typeof window === "undefined" ? undefined : window.location.pathname }),
+      keepalive: true,
+    });
+  } catch (error) {
+    console.debug("analytics event skipped", error);
+=======
 export interface CheckoutSessionPayload {
   plan: string;
   interval: BillingInterval;
@@ -114,5 +145,6 @@ export async function submitNpsResponse(payload: NpsPayload): Promise<void> {
   });
   if (!res.ok) {
     throw new Error((await res.json()).detail ?? "Unable to record response");
+>>>>>>> origin/main
   }
 }
