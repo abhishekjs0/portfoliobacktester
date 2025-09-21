@@ -21,51 +21,114 @@ export interface PortfolioRunResponse {
   tradesTable: Array<Record<string, unknown>>;
 }
 
-const API_BASE = (
-  process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api/proxy/"
-).replace(/\/*$/, "/");
 
-export async function uploadFiles(files: File[]): Promise<UploadResponse> {
-  const formData = new FormData();
-  files.forEach((file) => formData.append("files", file));
+export interface ParsedFileSummary {
+  fileName: string;
+  // API base URL and types
+  export type BillingInterval = "monthly" | "annual";
+  const API_BASE = (process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api/proxy/").replace(/\/*$/, "/");
 
-  const res = await fetch(`${API_BASE}api/uploads`, {
-    method: "POST",
-    body: formData,
-  });
-  if (!res.ok) {
-    throw new Error((await res.json()).detail ?? "Upload failed");
+  export interface CheckoutSessionPayload {
+    plan: string;
+    interval: BillingInterval;
   }
-  return res.json();
+
+  export interface CheckoutSessionResponse {
+    sessionId: string;
+    url: string;
+  }
+
+  export async function createCheckoutSession(payload: CheckoutSessionPayload): Promise<CheckoutSessionResponse> {
+    const res = await fetch(`${API_BASE}api/billing/checkout-session`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      throw new Error((await res.json()).detail ?? "Unable to start checkout");
+    }
+    return res.json();
+  }
+
+  export interface FeedbackPayload {
+    message: string;
+    email?: string;
+  }
+
+  export async function submitFeedback(payload: FeedbackPayload): Promise<void> {
+    const res = await fetch(`${API_BASE}api/feedback`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      throw new Error((await res.json()).detail ?? "Unable to send feedback");
+    }
+  }
+
+  export interface NpsPayload {
+    score: number;
+    comment?: string;
+  }
+
+  export async function submitNpsResponse(payload: NpsPayload): Promise<void> {
+    const res = await fetch(`${API_BASE}api/feedback/nps`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      throw new Error((await res.json()).detail ?? "Unable to record response");
+    }
+  }
 }
 
-export interface RunPortfolioPayload {
-  batchId: string;
-  totalCapital: number;
-  currency: string;
-  dateRange?: [string | null, string | null];
+export interface CheckoutSessionResponse {
+  sessionId: string;
+  url: string;
 }
 
-export async function runPortfolio(
-  payload: RunPortfolioPayload,
-): Promise<PortfolioRunResponse> {
-  const res = await fetch(`${API_BASE}api/portfolio/run`, {
+export async function createCheckoutSession(payload: CheckoutSessionPayload): Promise<CheckoutSessionResponse> {
+  const res = await fetch(`${API_BASE}api/billing/checkout-session`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
   if (!res.ok) {
-    throw new Error((await res.json()).detail ?? "Portfolio run failed");
+    throw new Error((await res.json()).detail ?? "Unable to start checkout");
   }
   return res.json();
 }
 
-export async function getPortfolioRuns(
-  batchId: string,
-): Promise<PortfolioRunResponse[]> {
-  const res = await fetch(`${API_BASE}api/portfolio/${batchId}`);
+export interface FeedbackPayload {
+  message: string;
+  email?: string;
+}
+
+export async function submitFeedback(payload: FeedbackPayload): Promise<void> {
+  const res = await fetch(`${API_BASE}api/feedback`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
   if (!res.ok) {
-    throw new Error("Unable to fetch runs");
+    throw new Error((await res.json()).detail ?? "Unable to send feedback");
   }
-  return res.json();
+}
+
+export interface NpsPayload {
+  score: number;
+  comment?: string;
+}
+
+export async function submitNpsResponse(payload: NpsPayload): Promise<void> {
+  const res = await fetch(`${API_BASE}api/feedback/nps`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    throw new Error((await res.json()).detail ?? "Unable to record response");
+>>>>>>> origin/main
+  }
 }

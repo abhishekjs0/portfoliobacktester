@@ -46,8 +46,9 @@ export function EquityChart({ equityCurve, drawdown }: EquityChartProps) {
           data: drawdown.map((point) => point.value * 100),
           yAxisID: "drawdown",
           borderColor: "#ef4444",
-          backgroundColor: "rgba(239, 68, 68, 0.3)",
-          type: "bar" as const,
+          backgroundColor: "rgba(239, 68, 68, 0.15)",
+          borderDash: [6, 4],
+          fill: false,
         },
       ],
     };
