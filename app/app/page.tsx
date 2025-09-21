@@ -180,6 +180,30 @@ export default function Home() {
             </div>
 
             <div className="landing-panel">
+<<<<<<< HEAD
+              <ol className="landing-stepper">
+                {steps.map((step, index) => (
+                  <li key={step.label} className="landing-step">
+                    <span className="index" aria-hidden="true">
+                      {index + 1}
+                    </span>
+                    <div>
+                      <strong>{step.label}</strong>
+                      <p>{step.copy}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+              <form id="signup" className="landing-inline-form" aria-label="Email capture">
+                <label className="sr-only" htmlFor="beta-email">
+                  Email address
+                </label>
+                <input id="beta-email" type="email" placeholder="Enter your email to join the beta" required />
+                <button type="button" className="landing-btn">
+                  Get early access
+                </button>
+              </form>
+=======
               <h3 className="landing-panel-title">Upload → Aggregate → Decide</h3>
               <ul className="landing-feature-list">
                 <li>Batch import TradingView CSVs with automated validation and tagging.</li>
@@ -190,6 +214,7 @@ export default function Home() {
               <Link className="button button--primary" href="/backtests?demo=1">
                 Launch demo workspace
               </Link>
+>>>>>>> origin/main
             </div>
           </div>
         </div>
@@ -219,7 +244,11 @@ export default function Home() {
               <h3 id="cta-heading">Join the early access cohort</h3>
               <p>Spots this month are capped to ensure fast onboarding and support.</p>
             </div>
+<<<<<<< HEAD
+            <form className="landing-inline-form" aria-label="Reserve spot">
+=======
             <div className="landing-inline-form" role="form" aria-label="Reserve spot">
+>>>>>>> origin/main
               <label className="sr-only" htmlFor="cta-email">
                 Email address
               </label>

@@ -18,6 +18,7 @@ dependencies = [
   "boto3>=1.28",
   "python-dateutil>=2.8",
   "tenacity>=8.2",
+  "stripe>=7.11",
   "passlib[bcrypt]>=1.7",
   "slowapi>=0.1.9"
 ]
