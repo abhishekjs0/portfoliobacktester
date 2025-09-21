@@ -4,6 +4,12 @@ const globalForPrisma = globalThis as unknown as {
   prisma?: PrismaClient;
 };
 
+import type { PrismaClient } from "@prisma/client";
+
+const globalForPrisma = globalThis as unknown as {
+  prisma?: PrismaClient;
+};
+
 let prisma: PrismaClient | undefined = globalForPrisma.prisma;
 
 if (!prisma) {
@@ -37,3 +43,17 @@ if (!prisma) {
 }
 
 export { prisma };
+          }
+          return modelProxy;
+        },
+      }
+    ) as PrismaClient;
+  }
+}
+
+export const prisma = globalForPrisma.prisma ?? createPrismaClient();
+
+if (process.env.NODE_ENV !== "production") {
+  globalForPrisma.prisma = prisma;
+}
+>>>>>>> origin/main

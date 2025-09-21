@@ -13,7 +13,7 @@ from sqlalchemy.orm import Session
 from ..core.config import settings
 from ..models import tables
 from ..models.schemas import FileIngestReport
-from .storage import storage_service
+from .storage import StorageError, storage_service
 
 REQUIRED_COLUMNS = [
     "Trade #",
@@ -29,7 +29,7 @@ REQUIRED_COLUMNS = [
 ]
 
 
-# Map canonical headers to acceptable aliases ordered by preference.
+## Map canonical headers to acceptable aliases ordered by preference.
 COLUMN_ALIASES: dict[str, tuple[str, ...]] = {
     "Type (Long/Short)": (
         "Type",
@@ -67,10 +67,34 @@ COLUMN_ALIASES: dict[str, tuple[str, ...]] = {
         "Cumulative P&L INR",
         "Cumulative profit",
     ),
+=======
+COLUMN_ALIASES = {
+    "Type": "Type (Long/Short)",
+    "Side": "Type (Long/Short)",
+    "Price INR": "Price",
+    "Price USD": "Price",
+    "Price (INR)": "Price",
+    "Price (USD)": "Price",
+    "Position size (qty)": "Position size",
+    "Position size (value)": "Position size",
+    "Net P&L INR": "Net P&L",
+    "Net P&L USD": "Net P&L",
+    "Net Profit": "Net P&L",
+    "Run-up INR": "Run-up",
+    "Run-up USD": "Run-up",
+    "Maximum Run-up": "Run-up",
+    "Drawdown INR": "Drawdown",
+    "Drawdown USD": "Drawdown",
+    "Maximum Drawdown": "Drawdown",
+    "Cumulative P&L INR": "Cumulative P&L",
+    "Cumulative P&L USD": "Cumulative P&L",
+    "Cumulative Profit": "Cumulative P&L",
+>>>>>>> origin/main
 }
 
 
 def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
+<<<<<<< HEAD
     """Rename known column aliases to their canonical headers."""
 
     normalized = df.copy()
@@ -89,6 +113,32 @@ def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
         normalized = normalized.rename(columns=rename_map)
 
     return normalized
+=======
+    """Rename known TradingView header variants to the canonical schema."""
+
+    stripped = {col: col.strip() for col in df.columns}
+    if any(original != trimmed for original, trimmed in stripped.items()):
+        df = df.rename(columns=stripped)
+
+    # Special handling for Position size columns
+    qty_col = "Position size (qty)"
+    value_col = "Position size (value)"
+    canonical_col = "Position size"
+    if qty_col in df.columns and value_col in df.columns:
+        # Prefer value_col, drop qty_col
+        df = df.drop(columns=[qty_col])
+        if canonical_col not in df.columns:
+            df = df.rename(columns={value_col: canonical_col})
+    else:
+        rename_map: dict[str, str] = {}
+        for alias, canonical in COLUMN_ALIASES.items():
+            if alias in df.columns and canonical not in df.columns:
+                rename_map[alias] = canonical
+        if rename_map:
+            df = df.rename(columns=rename_map)
+
+    return df
+>>>>>>> origin/main
 
 
 def parse_filename(filename: str) -> tuple[str, str, datetime]:
@@ -116,7 +166,10 @@ def ingest_files(db: Session, user: tables.User, files: Iterable[UploadFile]) ->
 
     reports: list[FileIngestReport] = []
 
-    storage_service.ensure_bucket()
+    try:
+        storage_service.ensure_bucket()
+    except StorageError as exc:
+        raise ValueError(str(exc)) from exc
 
     for upload in files:
         file_bytes = upload.file.read()
@@ -137,7 +190,10 @@ def ingest_files(db: Session, user: tables.User, files: Iterable[UploadFile]) ->
         warnings: list[str] = []
 
         object_key = f"{batch_id}/{uuid.uuid4()}-{upload.filename}"
-        storage_service.put_object(object_key, io.BytesIO(file_bytes))
+        try:
+            storage_service.put_object(object_key, io.BytesIO(file_bytes))
+        except StorageError as exc:
+            raise ValueError(str(exc)) from exc
 
         record = tables.UploadFileRecord(
             id=str(uuid.uuid4()),
