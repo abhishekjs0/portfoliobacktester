@@ -60,13 +60,22 @@ def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
     if any(original != trimmed for original, trimmed in stripped.items()):
         df = df.rename(columns=stripped)
 
-    rename_map: dict[str, str] = {}
-    for alias, canonical in COLUMN_ALIASES.items():
-        if alias in df.columns and canonical not in df.columns:
-            rename_map[alias] = canonical
-
-    if rename_map:
-        df = df.rename(columns=rename_map)
+    # Special handling for Position size columns
+    qty_col = "Position size (qty)"
+    value_col = "Position size (value)"
+    canonical_col = "Position size"
+    if qty_col in df.columns and value_col in df.columns:
+        # Prefer value_col, drop qty_col
+        df = df.drop(columns=[qty_col])
+        if canonical_col not in df.columns:
+            df = df.rename(columns={value_col: canonical_col})
+    else:
+        rename_map: dict[str, str] = {}
+        for alias, canonical in COLUMN_ALIASES.items():
+            if alias in df.columns and canonical not in df.columns:
+                rename_map[alias] = canonical
+        if rename_map:
+            df = df.rename(columns=rename_map)
 
     return df
 
