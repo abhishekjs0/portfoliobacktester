@@ -8,9 +8,12 @@ from sqlalchemy.orm import Session
 from . import db
 from .core.config import settings
 from .models import tables
+from .services.auth import UserService
+from .services.backtests import BacktestService
+from .services.feedback import FeedbackService
 
 
-async def get_db_session() -> Session:
+def get_db_session() -> Session:
     yield from db.get_db()
 
 
@@ -58,7 +61,7 @@ def enforce_plan_limits(user: tables.User, db_session: Session, files_count: int
         "pro": (settings.enterprise_max_files, settings.enterprise_runs_per_day),
         "enterprise": (settings.enterprise_max_files, settings.enterprise_runs_per_day),
     }
-    max_files, max_runs = plan_limits.get(user.plan, plan_limits["free"])
+        max_files, max_runs = plan_limits.get(user.plan, plan_limits["free"])  # Keep existing logic
 
     if files_count > max_files:
         raise HTTPException(
@@ -98,3 +101,26 @@ def track_run(user: tables.User, db_session: Session) -> None:
     usage.runs += 1
     db_session.add(usage)
     db_session.commit()
+<<<<<<< HEAD
+=======
+
+
+from .core.config import settings
+
+_user_service = UserService()
+_user_service.seed_user(email="user@example.com", password="CorrectPassword123!", name="Demo User")
+_backtest_service = BacktestService()
+_feedback_service = FeedbackService()
+
+
+def get_user_service() -> UserService:
+    return _user_service
+
+
+def get_backtest_service() -> BacktestService:
+    return _backtest_service
+
+
+def get_feedback_service() -> FeedbackService:
+    return _feedback_service
+>>>>>>> origin/main

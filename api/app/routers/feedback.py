@@ -1,26 +1,26 @@
-from fastapi import APIRouter, Depends, status
+<<<<<<< HEAD
+
+from fastapi import APIRouter, Depends, Request, status
 from sqlalchemy.orm import Session
 
 from .. import deps
+from ..core.ratelimit import limiter
+from ..deps import get_feedback_service
 from ..models import schemas, tables
+from ..models.schemas import FeedbackIn, FeedbackResponse
+from ..services.feedback import FeedbackService
 
 router = APIRouter()
 
-
-@router.post("", status_code=status.HTTP_204_NO_CONTENT)
+@router.post("", response_model=FeedbackResponse, status_code=status.HTTP_200_OK)
+@limiter.limit("30/hour")
 def submit_feedback(
-    payload: schemas.FeedbackRequest,
-    user: tables.User = Depends(deps.get_current_user),
-    db_session: Session = Depends(deps.get_db_session),
-) -> None:
-    entry = tables.FeedbackEntry(
-        user_id=user.id,
-        email=payload.email,
-        message=payload.message,
-    )
-    db_session.add(entry)
-    db_session.commit()
-
+    payload: FeedbackIn,
+    request: Request,
+    service: FeedbackService = Depends(get_feedback_service),
+) -> FeedbackResponse:
+    service.submit(message=payload.message, rating=payload.rating)
+    return FeedbackResponse(detail="Feedback received")
 
 @router.post("/nps", status_code=status.HTTP_204_NO_CONTENT)
 def submit_nps(

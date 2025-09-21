@@ -18,6 +18,7 @@ from ..core.config import settings
 from ..models import tables
 from ..models.schemas import PortfolioRunRequest, PortfolioRunResponse
 from .storage import storage_service
+from .ingest import normalize_columns
 
 
 @dataclass
@@ -48,7 +49,7 @@ class EquitySeries:
 def _read_csv(key: str) -> pd.DataFrame:
     raw = storage_service.get_object(key)
     df = pd.read_csv(io.BytesIO(raw))
-    return df
+    return normalize_columns(df)
 
 
 def _extract_trades(ticker: str, df: pd.DataFrame) -> list[NormalizedTrade]:
