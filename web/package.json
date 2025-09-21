@@ -1,0 +1,12 @@
+{
+  "name": "portfolio-frontend",
+  "private": true,
+  "packageManager": "pnpm@8.15.1",
+  "scripts": {
+    "dev": "pnpm --filter backtester-app dev",
+    "build": "pnpm --filter backtester-app build",
+    "preview": "pnpm --filter backtester-app preview",
+    "lint": "pnpm --filter backtester-app lint",
+    "test": "pnpm --filter backtester-app test"
+  }
+}

@@ -39,6 +39,17 @@ tests/      # Cross-cutting docs/tests (FastAPI + PyTest inside api/, Playwright
    ```
 5. Visit `http://localhost:3000` and upload the sample CSVs from `examples/`.
 
+## Preview without touching code (Docker Desktop)
+
+If you just want to see the app in action without learning any commands, follow this plain-language checklist:
+
+1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop) and open it once so it finishes setting up.
+2. Download or clone this repository and open a terminal (Terminal on macOS, Command Prompt or PowerShell on Windows).
+3. Inside the project folder run `cp .env.example .env` (macOS/Linux) or `copy .env.example .env` (Windows). The file already contains safe defaults for a quick preview.
+4. Start the stack with `cd infra` followed by `docker compose up --build`. The first run may take a few minutes while Docker downloads everything.
+5. When the scrolling text shows that the web server is ready, open your browser to `http://localhost:3000`. Leave the terminal open while you click around.
+6. Press `Ctrl + C` in the terminal when you want to shut everything down.
+
 ## Docker instructions
 
 Build and start the full stack with one command:

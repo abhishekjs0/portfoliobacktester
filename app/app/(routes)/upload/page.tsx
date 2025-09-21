@@ -1,5 +1,6 @@
 "use client";
 
+<<<<<<< HEAD
 import { useCallback, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { uploadFiles, shareParsedSummary, ParsedFileSummary } from "../../../lib/api";
@@ -29,14 +30,26 @@ function parseCsvFile(file: File, onProgress: (value: number) => void): Promise<
     worker.postMessage({ file });
   });
 }
+=======
+import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
+import { CSVUpload } from "../../../components/csv-upload";
+import { Button } from "../../../components/ui/button";
+import { uploadFiles } from "../../../lib/api";
+import { trackEvent } from "../../../lib/analytics";
+import { completeChecklistStep } from "../../../lib/checklist";
+import { usePlan } from "../../../lib/use-plan";
+>>>>>>> origin/main
 
 export default function UploadPage() {
   const router = useRouter();
+  const { plan } = usePlan();
   const [files, setFiles] = useState<File[]>([]);
   const [summaries, setSummaries] = useState<ParsedFileSummary[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [status, setStatus] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+<<<<<<< HEAD
   const [isParsing, setIsParsing] = useState(false);
   const [parseProgress, setParseProgress] = useState(0);
   const [allowRawUpload, setAllowRawUpload] = useState(false);
@@ -97,6 +110,18 @@ export default function UploadPage() {
     },
     [parseFiles],
   );
+=======
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  const handleUploadSelection = useCallback((fileList: FileList) => {
+    const nextFiles = Array.from(fileList ?? []);
+    setFiles(nextFiles);
+    setSuccessMessage(null);
+    if (nextFiles.length > 0) {
+      trackEvent("csv_selection", { count: nextFiles.length });
+    }
+  }, []);
+>>>>>>> origin/main
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -126,6 +151,7 @@ export default function UploadPage() {
     setIsSubmitting(true);
     try {
       const response = await uploadFiles(files);
+<<<<<<< HEAD
       if (shareSummary && summaries.length > 0) {
         try {
           await shareParsedSummary(summaries);
@@ -137,6 +163,14 @@ export default function UploadPage() {
       setStatus(message);
       announce(message);
       router.push(`/dashboard?batchId=${response.batchId}`);
+=======
+      trackEvent("csv_upload_submitted", { files: files.length });
+      setSuccessMessage(`Uploaded ${response.files.length} file${response.files.length === 1 ? "" : "s"} successfully.`);
+      completeChecklistStep("upload-demo");
+      setTimeout(() => {
+        router.push(`/dashboard?batchId=${response.batchId}`);
+      }, 600);
+>>>>>>> origin/main
     } catch (err) {
       const message = (err as Error).message;
       setError(message);
@@ -163,6 +197,7 @@ export default function UploadPage() {
       <p className="mt-2 text-slate-300">
         Files are parsed privately in your browser. Share summaries or raw CSVs only if you choose to.
       </p>
+<<<<<<< HEAD
       <form onSubmit={handleSubmit} className="mt-8 space-y-6" aria-describedby="upload-help">
         <label
           htmlFor="csv-upload"
@@ -242,6 +277,30 @@ export default function UploadPage() {
         >
           {allowRawUpload ? (isSubmitting ? "Uploading…" : "Upload & Continue") : "Save local analysis"}
         </button>
+=======
+      <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+        <CSVUpload
+          onUpload={handleUploadSelection}
+          disabled={isSubmitting}
+          description="StrategyName_Ticker_YYYY-MM-DD.csv · Columns must match TradingView’s “List of trades” format."
+        />
+        {error && <div className="rounded-md border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-200">{error}</div>}
+        {successMessage && (
+          <div className="rounded-md border border-emerald-500/40 bg-emerald-500/10 p-3 text-sm text-emerald-200" role="status">
+            {successMessage}
+          </div>
+        )}
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-slate-400">
+            {plan === "free"
+              ? "Free plan: Upload up to 5 CSVs per batch. Upgrade for larger portfolios."
+              : "Pro tip: Upload up to 100 CSVs per batch on paid plans."}
+          </p>
+          <Button type="submit" disabled={isSubmitting || files.length === 0} isLoading={isSubmitting} className="w-full sm:w-auto">
+            Upload & Continue
+          </Button>
+        </div>
+>>>>>>> origin/main
       </form>
 
       {summaries.length > 0 && (

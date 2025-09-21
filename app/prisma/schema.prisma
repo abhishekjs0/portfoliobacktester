@@ -16,6 +16,12 @@ model User {
   accounts      Account[]
   sessions      Session[]
   plan          String   @default("free")
+  stripeCustomerId    String?
+  stripeSubscriptionId String?
+  subscriptionStatus  String? @default("inactive")
+  subscriptionValidUntil DateTime?
+  feedback      Feedback[]
+  analytics     AnalyticsEvent[]
   createdAt     DateTime @default(now())
 }
 
@@ -51,6 +57,25 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Feedback {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  message   String
+  email     String?
+  score     Int?
+  createdAt DateTime @default(now())
+}
+
+model AnalyticsEvent {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  event     String
+  payload   Json?
+  createdAt DateTime @default(now())
 }
 
 enum UsageTier {

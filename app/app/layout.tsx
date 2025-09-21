@@ -3,8 +3,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ReactNode } from "react";
 import Providers from "../components/providers";
+<<<<<<< HEAD
 import { AnalyticsTracker } from "../components/analytics-tracker";
 import { CookieConsentBanner } from "../components/cookie-consent";
+=======
+import { SiteHeader } from "../components/site-header";
+import { SiteFooter } from "../components/site-footer";
+>>>>>>> origin/main
 
 const fallbackUrl = "https://portfoliobacktester.example";
 const resolvedBase = (() => {
@@ -63,6 +68,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           Skip to main content
         </a>
         <Providers>
+<<<<<<< HEAD
           <AnalyticsTracker />
           <div className="app-shell">
             <header className="site-header" role="banner">
@@ -92,6 +98,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <div id="toast-announcer" role="status" aria-live="polite" aria-atomic="true" className="sr-only" />
           </div>
           <CookieConsentBanner />
+=======
+          <div className="app-shell">
+            <SiteHeader />
+            <main className="site-main">{children}</main>
+            <SiteFooter />
+          </div>
+>>>>>>> origin/main
         </Providers>
       </body>
     </html>
