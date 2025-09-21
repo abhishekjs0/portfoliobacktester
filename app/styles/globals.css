@@ -1236,10 +1236,42 @@ a:hover {
   grid-template-columns: 1fr;
 }
 
+.landing-panel-column {
+  display: grid;
+  gap: 24px;
+}
+
 @media (min-width: 960px) {
   .landing-feature {
     grid-template-columns: 1.1fr 0.9fr;
   }
+}
+
+.landing-panel-title {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--tv-heading);
+}
+
+.landing-feature-list {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 12px;
+  color: var(--tv-muted);
+}
+
+.landing-feature-list li {
+  line-height: 1.6;
+}
+
+.landing-panel-cta {
+  margin-top: 18px;
+}
+
+.landing-panel-cta .landing-btn {
+  width: fit-content;
 }
 
 .landing-panel {

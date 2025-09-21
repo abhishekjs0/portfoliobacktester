@@ -1,27 +1,48 @@
-import { PrismaClient } from "@prisma/client";
+import type { PrismaClient } from "@prisma/client";
 
-const globalForPrisma = global as unknown as { prisma: PrismaClient | undefined };
+const globalForPrisma = globalThis as unknown as {
+  prisma?: PrismaClient;
+};
 
-function createPrismaClient(): PrismaClient {
-  try {
-    return new PrismaClient();
-  } catch (error) {
-    console.warn("Prisma client could not be initialized. Did you run `prisma generate`?", error);
-    const modelProxy = new Proxy(
-      {},
-      {
-        get() {
-          return async () => undefined;
-        },
+import type { PrismaClient } from "@prisma/client";
+
+const globalForPrisma = globalThis as unknown as {
+  prisma?: PrismaClient;
+};
+
+let prisma: PrismaClient | undefined = globalForPrisma.prisma;
+
+if (!prisma) {
+  const prismaModule = await import("@prisma/client").catch((error: unknown) => {
+    if (process.env.NODE_ENV !== "production") {
+      console.warn(
+        "Prisma Client could not be initialized. Continuing without a database connection.",
+        error,
+      );
+    }
+    return undefined;
+  });
+
+  if (prismaModule) {
+    try {
+      prisma = new prismaModule.PrismaClient();
+
+      if (process.env.NODE_ENV !== "production") {
+        globalForPrisma.prisma = prisma;
       }
-    );
+    } catch (error) {
+      if (process.env.NODE_ENV !== "production") {
+        console.warn(
+          "Prisma Client could not be initialized. Continuing without a database connection.",
+          error,
+        );
+      }
+      prisma = undefined;
+    }
+  }
+}
 
-    return new Proxy(
-      {},
-      {
-        get(_target, prop: string | symbol) {
-          if (typeof prop === "string" && prop.startsWith("$")) {
-            return async () => undefined;
+export { prisma };
           }
           return modelProxy;
         },
@@ -35,3 +56,4 @@ export const prisma = globalForPrisma.prisma ?? createPrismaClient();
 if (process.env.NODE_ENV !== "production") {
   globalForPrisma.prisma = prisma;
 }
+>>>>>>> origin/main

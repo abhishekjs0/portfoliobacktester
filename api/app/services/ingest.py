@@ -29,6 +29,45 @@ REQUIRED_COLUMNS = [
 ]
 
 
+## Map canonical headers to acceptable aliases ordered by preference.
+COLUMN_ALIASES: dict[str, tuple[str, ...]] = {
+    "Type (Long/Short)": (
+        "Type",
+        "Trade type",
+        "Direction",
+    ),
+    "Price": (
+        "Price INR",
+        "Price USD",
+        "Entry price",
+        "Exit price",
+    ),
+    "Position size": (
+        "Position size (value)",
+        "Position size (qty)",
+        "Position size value",
+        "Position size quantity",
+    ),
+    "Net P&L": (
+        "Net P&L INR",
+        "Net profit",
+        "Profit",
+    ),
+    "Run-up": (
+        "Run-up INR",
+        "Runup",
+        "Max run-up",
+    ),
+    "Drawdown": (
+        "Drawdown INR",
+        "Draw down",
+        "Max drawdown",
+    ),
+    "Cumulative P&L": (
+        "Cumulative P&L INR",
+        "Cumulative profit",
+    ),
+=======
 COLUMN_ALIASES = {
     "Type": "Type (Long/Short)",
     "Side": "Type (Long/Short)",
@@ -50,10 +89,31 @@ COLUMN_ALIASES = {
     "Cumulative P&L INR": "Cumulative P&L",
     "Cumulative P&L USD": "Cumulative P&L",
     "Cumulative Profit": "Cumulative P&L",
+>>>>>>> origin/main
 }
 
 
 def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
+<<<<<<< HEAD
+    """Rename known column aliases to their canonical headers."""
+
+    normalized = df.copy()
+    normalized.columns = [col.strip() for col in normalized.columns]
+
+    rename_map: dict[str, str] = {}
+    for canonical, aliases in COLUMN_ALIASES.items():
+        if canonical in normalized.columns:
+            continue
+        for alias in aliases:
+            if alias in normalized.columns:
+                rename_map[alias] = canonical
+                break
+
+    if rename_map:
+        normalized = normalized.rename(columns=rename_map)
+
+    return normalized
+=======
     """Rename known TradingView header variants to the canonical schema."""
 
     stripped = {col: col.strip() for col in df.columns}
@@ -78,6 +138,7 @@ def normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
             df = df.rename(columns=rename_map)
 
     return df
+>>>>>>> origin/main
 
 
 def parse_filename(filename: str) -> tuple[str, str, datetime]:
