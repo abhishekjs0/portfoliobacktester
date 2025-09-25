@@ -13,6 +13,14 @@ from .services.backtests import BacktestService
 from .services.feedback import FeedbackService
 
 
+PLAN_LIMITS: dict[str, tuple[int, int]] = {
+    "free": (settings.free_max_files, settings.free_runs_per_day),
+    "standard": (settings.pro_max_files, settings.pro_runs_per_day),
+    "pro": (settings.pro_max_files, settings.pro_runs_per_day),
+    "enterprise": (settings.enterprise_max_files, settings.enterprise_runs_per_day),
+}
+
+
 def get_db_session() -> Session:
     yield from db.get_db()
 
@@ -55,13 +63,7 @@ def _get_usage(db_session: Session, user: tables.User) -> tables.UsageLog:
 def enforce_plan_limits(user: tables.User, db_session: Session, files_count: int) -> None:
     usage = _get_usage(db_session, user)
 
-    plan_limits = {
-        "free": (settings.free_max_files, settings.free_runs_per_day),
-        "standard": (settings.pro_max_files, settings.pro_runs_per_day),
-        "pro": (settings.pro_max_files, settings.pro_runs_per_day),
-        "enterprise": (settings.enterprise_max_files, settings.enterprise_runs_per_day),
-    }
-    max_files, max_runs = plan_limits.get(user.plan, plan_limits["free"])
+    max_files, max_runs = PLAN_LIMITS.get(user.plan, PLAN_LIMITS["free"])
 
     if files_count > max_files:
         raise HTTPException(
@@ -81,13 +83,7 @@ def enforce_plan_limits(user: tables.User, db_session: Session, files_count: int
 
 def track_run(user: tables.User, db_session: Session) -> None:
     usage = _get_usage(db_session, user)
-    plan_limits = {
-        "free": (settings.free_max_files, settings.free_runs_per_day),
-        "standard": (settings.pro_max_files, settings.pro_runs_per_day),
-        "pro": (settings.pro_max_files, settings.pro_runs_per_day),
-        "enterprise": (settings.enterprise_max_files, settings.enterprise_runs_per_day),
-    }
-    _, max_runs = plan_limits.get(user.plan, plan_limits["free"])
+    _, max_runs = PLAN_LIMITS.get(user.plan, PLAN_LIMITS["free"])
     if usage.runs >= max_runs:
         raise HTTPException(
             status_code=status.HTTP_402_PAYMENT_REQUIRED,
