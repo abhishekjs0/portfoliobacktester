@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { Suspense, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { mockBacktests } from "../../lib/mock-data";
-import { formatCurrency, formatPercent } from "../../lib/format";
+import { mockBacktests } from "../../../lib/mock-data";
+import { formatCurrency, formatPercent } from "../../../lib/format";
 
 function BacktestsContent() {
   const searchParams = useSearchParams();

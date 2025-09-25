@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { flows, keyBenefits } from "../../lib/marketing-content";
+import { flows, keyBenefits } from "../../../lib/marketing-content";
 
 export default function FeaturesPage() {
   return (
