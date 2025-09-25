@@ -25,10 +25,13 @@ function LoginPageContent() {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setError(null);
     try {
       const user = authenticateDemoUser(email, password);
+      document.cookie = `demo-session=${encodeURIComponent(user.email)}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;
       router.push(`/dashboard?welcome=${encodeURIComponent(user.name)}`);
     } catch (err) {
+      document.cookie = "demo-session=; Max-Age=0; path=/; SameSite=Lax";
       setError((err as Error).message);
     }
   };
