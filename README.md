@@ -41,6 +41,10 @@ tests/      # Cross-cutting docs/tests (FastAPI + PyTest inside api/, Playwright
    ```
 5. Visit `http://localhost:3000` and upload the sample CSVs from `examples/`.
 
+### Explore every page quickly
+
+Open `http://localhost:3000/demo` to see a curated tour of the marketing site, onboarding forms, and authenticated dashboards. Each card links straight to the live route so product, sales, or investor teams can preview the full experience in minutes.
+
 ## Preview without touching code (Docker Desktop)
 
 If you just want to see the app in action without learning any commands, follow this plain-language checklist:

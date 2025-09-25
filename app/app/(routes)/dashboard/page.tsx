@@ -52,6 +52,7 @@ function MetricGrid({ metrics, currency }: MetricGridProps) {
 function DashboardPageContent() {
   const searchParams = useSearchParams();
   const batchId = searchParams.get("batchId");
+  const welcomeName = searchParams.get("welcome");
   const { plan } = usePlan();
   const isFreePlan = plan === "free";
   
@@ -95,6 +96,14 @@ function DashboardPageContent() {
   return (
     <>
       <NpsModal />
+      {welcomeName && (
+        <div
+          role="status"
+          className="mx-6 mt-6 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100"
+        >
+          Welcome aboard, {welcomeName}! Your workspace is ready to start backtesting.
+        </div>
+      )}
       <div className="px-6 py-10">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>

@@ -57,11 +57,43 @@ export async function createCheckoutSession(
   return {};
 }
 
-export async function uploadFiles(
-  files: File[],
-): Promise<{ files: File[]; batchId: string }> {
-  // TODO: implement upload logic
-  return { files, batchId: "" };
+type UploadResponse = {
+  batchId: string;
+  files: Array<{
+    fileId: string;
+    ticker: string;
+    strategy: string;
+    exportDate: string;
+    rows: number;
+  }>;
+};
+
+export async function uploadFiles(files: File[]): Promise<UploadResponse> {
+  if (files.length === 0) {
+    throw new Error("Select at least one CSV file.");
+  }
+
+  const formData = new FormData();
+  files.forEach((file) => {
+    formData.append("files", file);
+  });
+
+  const response = await fetch("/api/proxy/api/uploads", {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error("Upload failed. Please try again.");
+  }
+
+  const data = (await response.json()) as Partial<UploadResponse>;
+
+  if (!data?.batchId || !Array.isArray(data.files)) {
+    throw new Error("Unexpected response from upload service.");
+  }
+
+  return data as UploadResponse;
 }
 
 export function trackEvent(event: string, data?: unknown): void {

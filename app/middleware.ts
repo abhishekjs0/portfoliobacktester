@@ -9,8 +9,9 @@ export function middleware(request: NextRequest) {
   if (isProtectedRoute(pathname)) {
     // Check if user is authenticated
     const token = request.cookies.get("next-auth.session-token")?.value;
-    
-    if (!token) {
+    const demoSession = request.cookies.get("demo-session")?.value;
+
+    if (!token && !demoSession) {
       // Not authenticated, redirect to login
       const url = new URL("/login", request.url);
       url.searchParams.set("callbackUrl", encodeURI(pathname));

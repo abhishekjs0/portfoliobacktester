@@ -10,7 +10,7 @@
     "type-check": "tsc --noEmit",
     "test": "vitest run --coverage",
     "test:watch": "vitest",
-    "test:e2e": "playwright test",
+    "test:e2e": "node ./scripts/ensure-playwright-browsers.mjs && playwright test",
     "prisma:generate": "prisma generate"
   },
   "dependencies": {
