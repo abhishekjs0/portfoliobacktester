@@ -3,9 +3,19 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Dict, Optional
 
-from passlib.context import CryptContext
+import bcrypt
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+def _hash_password(password: str) -> str:
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(password.encode("utf-8"), salt).decode("utf-8")
+
+
+def _verify_password(password: str, hashed: str) -> bool:
+    try:
+        return bcrypt.checkpw(password.encode("utf-8"), hashed.encode("utf-8"))
+    except ValueError:
+        return False
 
 
 @dataclass
@@ -36,7 +46,7 @@ class UserService:
         key = self._normalize_email(email)
         if key in self._users:
             raise EmailAlreadyRegisteredError(email)
-        hashed = pwd_context.hash(password)
+        hashed = _hash_password(password)
         record = UserRecord(id=self._id_counter, email=email, name=name, password_hash=hashed)
         self._users[key] = record
         self._id_counter += 1
@@ -45,7 +55,7 @@ class UserService:
     def authenticate(self, *, email: str, password: str) -> UserRecord:
         key = self._normalize_email(email)
         record = self._users.get(key)
-        if not record or not pwd_context.verify(password, record.password_hash):
+        if not record or not _verify_password(password, record.password_hash):
             raise InvalidCredentialsError()
         return record
 
@@ -56,7 +66,7 @@ class UserService:
         key = self._normalize_email(email)
         if key in self._users:
             return
-        hashed = pwd_context.hash(password)
+        hashed = _hash_password(password)
         self._users[key] = UserRecord(id=self._id_counter, email=email, name=name, password_hash=hashed)
         self._id_counter += 1
 

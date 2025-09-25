@@ -19,8 +19,9 @@ dependencies = [
   "python-dateutil>=2.8",
   "tenacity>=8.2",
   "stripe>=7.11",
-  "passlib[bcrypt]>=1.7",
-  "slowapi>=0.1.9"
+  "bcrypt>=4.0",
+  "slowapi>=0.1.9",
+  "httpx>=0.25"
 ]
 
 [project.optional-dependencies]

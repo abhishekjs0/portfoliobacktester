@@ -1,3 +1,4 @@
+import { MarketingShell } from "@/components/marketing-shell";
 import { faqItems, flows, keyBenefits } from "../lib/marketing-content";
 
 const painPoints = [
@@ -26,10 +27,11 @@ const painPoints = [
 
 export default function Home() {
   return (
-    <main className="landing-root">
-      <section className="landing-section" id="benefits" aria-labelledby="benefits-heading">
-        <div className="landing-container">
-          <h2 id="benefits-heading" className="landing-section-title">Why traders are switching</h2>
+    <MarketingShell>
+      <main className="landing-root">
+        <section className="landing-section" id="benefits" aria-labelledby="benefits-heading">
+          <div className="landing-container">
+            <h2 id="benefits-heading" className="landing-section-title">Why traders are switching</h2>
           <div className="landing-grid" role="list">
             {keyBenefits.map((benefit) => (
               <article key={benefit.title} className="landing-card" role="listitem">
@@ -104,6 +106,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </main>
+      </main>
+    </MarketingShell>
   );
 }

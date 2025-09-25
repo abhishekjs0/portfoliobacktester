@@ -26,7 +26,7 @@ export async function buildAuthOptions(): Promise<NextAuthOptions> {
     },
     callbacks: {
       // Ensure user has access to pages based on their role/plan
-      async session({ session, user }) {
+      async session({ session }) {
         if (session?.user) {
           // Add user's plan info to the session
           const dbUser = await prisma.user.findUnique({
