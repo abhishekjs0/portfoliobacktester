@@ -7,56 +7,22 @@ import { usePlan } from "@/lib/use-plan";
 import { trackEvent } from "@/lib/analytics";
 import { runPortfolio } from "@/lib/api";
 import { completeChecklistStep } from "@/lib/checklist";
-import type { PortfolioMetric, PortfolioRunResponse } from "@/types/api";
+import type { PortfolioRunResponse } from "@/types/api";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { NpsModal } from "@/components/nps-modal";
 import { DateRangePicker } from "@/components/date-range-picker";
-import { KPITile } from "@/components/kpi-tile";
+import { MetricGrid } from "@/components/metric-grid";
 import { FileTable } from "@/components/file-table";
-
-type MetricGridProps = {
-  metrics: PortfolioMetric[];
-  currency: string;
-};
-
-function MetricGrid({ metrics, currency }: MetricGridProps) {
-  return (
-    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-      {metrics.map((metric) => {
-        let numberValue = typeof metric.value === "string" 
-          ? parseFloat(metric.value) 
-          : metric.value;
-
-        if (isNaN(numberValue)) {
-          numberValue = 0;
-        }
-
-        const format = metric.format === "number" 
-          ? "raw" 
-          : (metric.format || "raw");
-
-        return (
-          <KPITile
-            key={metric.label}
-            label={metric.label}
-            value={numberValue}
-            format={format}
-            currency={currency}
-          />
-        );
-      })}
-    </div>
-  );
-}
 
 function DashboardPageContent() {
   const searchParams = useSearchParams();
   const batchId = searchParams.get("batchId");
+  const welcomeName = searchParams.get("welcome");
   const { plan } = usePlan();
   const isFreePlan = plan === "free";
   
-  const [capital] = useState(100_000);
-  const [currency] = useState("USD");
+  const [capital, setCapital] = useState(100_000);
+  const [currency, setCurrency] = useState("USD");
   const [dateRange, setDateRange] = useState<{
     start: Date | null;
     end: Date | null;

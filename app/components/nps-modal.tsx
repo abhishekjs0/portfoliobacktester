@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
-import { Button } from "./ui/button";
+import Button from "./ui/button";
 import { submitNpsResponse } from "../lib/api";
 import { trackEvent } from "../lib/analytics";
 

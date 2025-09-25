@@ -2,7 +2,7 @@
 
 import { useId, useMemo, useState } from "react";
 import clsx from "clsx";
-import { Button } from "./ui/button";
+import Button from "./ui/button";
 
 export interface CSVUploadProps {
   label?: string;
@@ -88,3 +88,5 @@ export function CSVUpload({
     </div>
   );
 }
+
+export default CSVUpload;

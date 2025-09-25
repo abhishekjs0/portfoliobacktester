@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button } from "./ui/button";
+import Button from "./ui/button";
 import { ChecklistState, ChecklistStepId, loadChecklist, subscribeToChecklist, completeChecklistStep } from "../lib/checklist";
 import { trackEvent } from "../lib/analytics";
 

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { faqItems, flows, keyBenefits } from "../lib/marketing-content";
 
 const painPoints = [
@@ -24,12 +23,6 @@ const painPoints = [
   },
 ];
 
-const highlightStats = [
-  { label: "Symbols per run", value: "50+" },
-  { label: "Aggregations per minute", value: "120" },
-  { label: "Avg time saved", value: "2h/day" },
-  { label: "Active beta users", value: "75" },
-];
 
 export default function Home() {
   return (

@@ -20,7 +20,7 @@ const variantStyles: Record<ButtonVariant, string> = {
   ghost: "bg-transparent text-white hover:bg-white/10 border-white/20 focus-visible:outline-white",
 };
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "primary", isLoading = false, disabled, children, ...props }, ref) => {
     return (
       <button
@@ -42,5 +42,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     );
   }
 );
+
+export default Button;
 
 Button.displayName = "Button";

@@ -2,12 +2,14 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button } from "../../../components/ui/button";
+import Button from "../../../components/ui/button";
 import { authenticateDemoUser } from "../../../lib/demo-auth";
 
 export const dynamic = "force-dynamic";
 
-export default function LoginPage() {
+import { Suspense } from "react";
+
+function LoginPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
@@ -66,5 +68,13 @@ export default function LoginPage() {
         </Button>
       </form>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-slate-300">Loading login…</div>}>
+      <LoginPageContent />
+    </Suspense>
   );
 }

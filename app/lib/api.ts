@@ -1,134 +1,54 @@
-export interface UploadResponse {
-  batchId: string;
-  files: Array<{
-    fileId: string;
-    ticker: string;
-    strategy: string;
-    exportDate: string;
-    rows: number;
-  }>;
+import type { 
+  PortfolioRunRequest,
+  PortfolioRunResponse,
+  PortfolioMetric
+} from "../types/api";
+
+export type RunPortfolioPayload = PortfolioRunRequest;
+export type BillingInterval = "monthly" | "annual";
+export type CheckoutSessionPayload = {
+	plan: string;
+	interval: BillingInterval;
+};
+
+export function runPortfolio(_payload: RunPortfolioPayload): Promise<PortfolioRunResponse> {
+	// TODO: implement portfolio logic
+	const demoMetrics: PortfolioMetric[] = [
+		{ label: "Total Return", value: 12.5, format: "percent" },
+		{ label: "Max Drawdown", value: -8.3, format: "percent" },
+		{ label: "Win Rate", value: 65.2, format: "percent" }
+	];
+
+	return Promise.resolve({
+		sections: {
+			performance: { metrics: demoMetrics },
+			tradesAnalysis: { metrics: demoMetrics },
+			riskRatios: { metrics: demoMetrics }
+		},
+		tradesTable: []
+	});
 }
 
-export interface PortfolioRunResponse {
-  equityCurve: Array<{ timestamp: string; value: number }>;
-  buyHoldCurve: Array<{ timestamp: string; value: number }>;
-  drawdown: Array<{ timestamp: string; value: number }>;
-  kpis: Record<string, number>;
-  sections: Record<
-    string,
-    { title: string; metrics: Array<Record<string, unknown>> }
-  >;
-  tradesTable: Array<Record<string, unknown>>;
+export function submitFeedback(_: unknown): Promise<unknown> {
+	// TODO: implement feedback logic
+	return Promise.resolve({});
 }
 
-
-export interface ParsedFileSummary {
-  fileName: string;
-  // API base URL and types
-  export type BillingInterval = "monthly" | "annual";
-  const API_BASE = (process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api/proxy/").replace(/\/*$/, "/");
-
-  export interface CheckoutSessionPayload {
-    plan: string;
-    interval: BillingInterval;
-  }
-
-  export interface CheckoutSessionResponse {
-    sessionId: string;
-    url: string;
-  }
-
-  export async function createCheckoutSession(payload: CheckoutSessionPayload): Promise<CheckoutSessionResponse> {
-    const res = await fetch(`${API_BASE}api/billing/checkout-session`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) {
-      throw new Error((await res.json()).detail ?? "Unable to start checkout");
-    }
-    return res.json();
-  }
-
-  export interface FeedbackPayload {
-    message: string;
-    email?: string;
-  }
-
-  export async function submitFeedback(payload: FeedbackPayload): Promise<void> {
-    const res = await fetch(`${API_BASE}api/feedback`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) {
-      throw new Error((await res.json()).detail ?? "Unable to send feedback");
-    }
-  }
-
-  export interface NpsPayload {
-    score: number;
-    comment?: string;
-  }
-
-  export async function submitNpsResponse(payload: NpsPayload): Promise<void> {
-    const res = await fetch(`${API_BASE}api/feedback/nps`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) {
-      throw new Error((await res.json()).detail ?? "Unable to record response");
-    }
-  }
+export function submitNpsResponse(_: unknown): Promise<unknown> {
+	// TODO: implement NPS response logic
+	return Promise.resolve({});
 }
 
-export interface CheckoutSessionResponse {
-  sessionId: string;
-  url: string;
+export function createCheckoutSession(_: CheckoutSessionPayload): Promise<{ sessionId?: string; url?: string }> {
+	// TODO: implement checkout session logic
+	return Promise.resolve({});
 }
 
-export async function createCheckoutSession(payload: CheckoutSessionPayload): Promise<CheckoutSessionResponse> {
-  const res = await fetch(`${API_BASE}api/billing/checkout-session`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-  if (!res.ok) {
-    throw new Error((await res.json()).detail ?? "Unable to start checkout");
-  }
-  return res.json();
+export function uploadFiles(files: File[]): Promise<{ files: File[]; batchId: string }> {
+	// TODO: implement upload logic
+	return Promise.resolve({ files, batchId: "" });
 }
 
-export interface FeedbackPayload {
-  message: string;
-  email?: string;
-}
-
-export async function submitFeedback(payload: FeedbackPayload): Promise<void> {
-  const res = await fetch(`${API_BASE}api/feedback`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-  if (!res.ok) {
-    throw new Error((await res.json()).detail ?? "Unable to send feedback");
-  }
-}
-
-export interface NpsPayload {
-  score: number;
-  comment?: string;
-}
-
-export async function submitNpsResponse(payload: NpsPayload): Promise<void> {
-  const res = await fetch(`${API_BASE}api/feedback/nps`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-  if (!res.ok) {
-    throw new Error((await res.json()).detail ?? "Unable to record response");
->>>>>>> origin/main
-  }
+export function trackEvent(_event: string, _data?: unknown): void {
+	// TODO: implement event tracking
 }

@@ -22,29 +22,15 @@ type MetricGridProps = {
 function MetricGrid({ metrics, currency }: MetricGridProps) {
   return (
     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-      {metrics.map((metric) => {
-        let numberValue = typeof metric.value === "string" 
-          ? parseFloat(metric.value) 
-          : metric.value;
-
-        if (isNaN(numberValue)) {
-          numberValue = 0;
-        }
-
-        const format = metric.format === "number" 
-          ? "raw" 
-          : (metric.format || "raw");
-
-        return (
-          <KPITile
-            key={metric.label}
-            label={metric.label}
-            value={numberValue}
-            format={format}
-            currency={currency}
-          />
-        );
-      })}
+      {metrics.map((metric) => (
+        <KPITile
+          key={metric.label}
+          label={metric.label}
+          value={metric.value}
+          format={metric.format || "number"}
+          currency={currency}
+        />
+      ))}
     </div>
   );
 }
@@ -55,8 +41,8 @@ function DashboardPageContent() {
   const { plan } = usePlan();
   const isFreePlan = plan === "free";
   
-  const [capital] = useState(100_000);
-  const [currency] = useState("USD");
+  const [capital, setCapital] = useState(100_000);
+  const [currency, setCurrency] = useState("USD");
   const [dateRange, setDateRange] = useState<{
     start: Date | null;
     end: Date | null;

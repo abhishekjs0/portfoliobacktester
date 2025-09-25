@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Button } from "../../../components/ui/button";
+import Button from "../../../components/ui/button";
 import { startCheckout } from "../../../lib/billing";
 import { BillingInterval } from "../../../lib/api";
 import { usePlan } from "../../../lib/use-plan";

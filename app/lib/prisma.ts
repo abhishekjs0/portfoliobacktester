@@ -1,13 +1,8 @@
-import type { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
-import type { PrismaClient } from "@prisma/client";
-
-const globalForPrisma = globalThis as unknown as {
-  prisma?: PrismaClient;
-};
+const globalForPrisma = globalThis as typeof globalThis & { prisma?: PrismaClient };
 
 function createPrismaClient(): PrismaClient {
-  const { PrismaClient } = require("@prisma/client");
   return new PrismaClient();
 }
 

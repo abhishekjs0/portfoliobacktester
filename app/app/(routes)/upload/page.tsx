@@ -1,9 +1,15 @@
+
 "use client";
 
+import { useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
+import CSVUpload from "@/components/csv-upload";
+import Button from "@/components/ui/button";
+import { usePlan } from "@/lib/use-plan";
+import { uploadFiles, trackEvent } from "@/lib/api";
+import { completeChecklistStep } from "@/lib/checklist";
 
 export default function UploadPage() {
-
-  // ...existing code...
   const router = useRouter();
   const { plan } = usePlan();
   const [files, setFiles] = useState<File[]>([]);

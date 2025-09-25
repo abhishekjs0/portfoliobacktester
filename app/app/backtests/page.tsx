@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { mockBacktests } from "../../lib/mock-data";
 import { formatCurrency, formatPercent } from "../../lib/format";
 
-export default function BacktestsPage() {
+function BacktestsContent() {
   const searchParams = useSearchParams();
   const startDemoSelected = searchParams.get("demo") === "1";
   const [query, setQuery] = useState("");
@@ -197,6 +197,14 @@ export default function BacktestsPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function BacktestsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <BacktestsContent />
+    </Suspense>
   );
 }
 

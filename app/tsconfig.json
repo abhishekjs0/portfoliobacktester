@@ -14,13 +14,15 @@
     "jsx": "preserve",
     "incremental": true,
     "types": [
-      "node",
       "@types/node",
       "@types/react",
-      "@types/react-dom",
-      "@types/react"
+      "@types/react-dom"
     ],
     "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    },
     "plugins": [
       {
         "name": "next"
