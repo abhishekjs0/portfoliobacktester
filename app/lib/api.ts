@@ -1,7 +1,4 @@
-import type { 
-  PortfolioRunRequest,
-  PortfolioMetric
-} from "../types/api";
+import type { PortfolioMetric, PortfolioRunRequest } from "../types/api";
 
 export type PortfolioRunResponse = {
   sections: {
@@ -15,48 +12,60 @@ export type PortfolioRunResponse = {
 export type RunPortfolioPayload = PortfolioRunRequest;
 export type BillingInterval = "monthly" | "annual";
 export type CheckoutSessionPayload = {
-	plan: string;
-	interval: BillingInterval;
+  plan: string;
+  interval: BillingInterval;
 };
 
-export function runPortfolio(_payload: RunPortfolioPayload): Promise<PortfolioRunResponse> {
-	// TODO: implement portfolio logic
-	const demoMetrics: PortfolioMetric[] = [
-		{ label: "Total Return", value: 12.5, format: "percent" },
-		{ label: "Max Drawdown", value: -8.3, format: "percent" },
-		{ label: "Win Rate", value: 65.2, format: "percent" }
-	];
+export async function runPortfolio(
+  payload: RunPortfolioPayload,
+): Promise<PortfolioRunResponse> {
+  void payload;
 
-	return Promise.resolve({
-		sections: {
-			performance: { metrics: demoMetrics },
-			tradesAnalysis: { metrics: demoMetrics },
-			riskRatios: { metrics: demoMetrics }
-		},
-		tradesTable: []
-	});
+  const demoMetrics: PortfolioMetric[] = [
+    { label: "Total Return", value: 12.5, format: "percent" },
+    { label: "Max Drawdown", value: -8.3, format: "percent" },
+    { label: "Win Rate", value: 65.2, format: "percent" },
+  ];
+
+  return {
+    sections: {
+      performance: { metrics: demoMetrics },
+      tradesAnalysis: { metrics: demoMetrics },
+      riskRatios: { metrics: demoMetrics },
+    },
+    tradesTable: [],
+  };
 }
 
-export function submitFeedback(_: unknown): Promise<unknown> {
-	// TODO: implement feedback logic
-	return Promise.resolve({});
+export async function submitFeedback(feedback: unknown): Promise<unknown> {
+  void feedback;
+
+  return {};
 }
 
-export function submitNpsResponse(_: unknown): Promise<unknown> {
-	// TODO: implement NPS response logic
-	return Promise.resolve({});
+export async function submitNpsResponse(payload: unknown): Promise<unknown> {
+  void payload;
+
+  return {};
 }
 
-export function createCheckoutSession(_: CheckoutSessionPayload): Promise<{ sessionId?: string; url?: string }> {
-	// TODO: implement checkout session logic
-	return Promise.resolve({});
+export async function createCheckoutSession(
+  payload: CheckoutSessionPayload,
+): Promise<{ sessionId?: string; url?: string }> {
+  void payload;
+
+  return {};
 }
 
-export function uploadFiles(files: File[]): Promise<{ files: File[]; batchId: string }> {
-	// TODO: implement upload logic
-	return Promise.resolve({ files, batchId: "" });
+export async function uploadFiles(
+  files: File[],
+): Promise<{ files: File[]; batchId: string }> {
+  // TODO: implement upload logic
+  return { files, batchId: "" };
 }
 
-export function trackEvent(_event: string, _data?: unknown): void {
-	// TODO: implement event tracking
+export function trackEvent(event: string, data?: unknown): void {
+  void event;
+  void data;
+  // TODO: implement event tracking
 }

@@ -13,3 +13,4 @@ const handler = async (...args: Parameters<ReturnType<typeof NextAuth>>) => {
 };
 
 export { handler as GET, handler as POST };
+export const runtime = "nodejs";

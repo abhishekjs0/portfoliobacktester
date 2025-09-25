@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 from fastapi import APIRouter, Depends, Request, status
 from sqlalchemy.orm import Session
 

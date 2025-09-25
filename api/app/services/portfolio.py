@@ -273,20 +273,26 @@ def _build_sections(kpis: dict[str, float | int], trades: list[NormalizedTrade],
 def _sharpe_ratio(series: pd.Series, risk_free: float = 0.0) -> float:
     if series.empty or len(series) < 2:
         return 0.0
-    returns = series.pct_change().dropna()
-    if returns.std() == 0:
+    returns = series.pct_change().replace([np.inf, -np.inf], np.nan).dropna()
+    if returns.empty or len(returns) < 2:
         return 0.0
-    return (returns.mean() - risk_free / 252) / returns.std() * math.sqrt(252)
+    std = returns.std()
+    if np.isnan(std) or std == 0:
+        return 0.0
+    return (returns.mean() - risk_free / 252) / std * math.sqrt(252)
 
 
 def _sortino_ratio(series: pd.Series, risk_free: float = 0.0) -> float:
     if series.empty or len(series) < 2:
         return 0.0
-    returns = series.pct_change().dropna()
+    returns = series.pct_change().replace([np.inf, -np.inf], np.nan).dropna()
     downside = returns[returns < 0]
-    if downside.std() == 0:
+    if downside.empty or len(downside) < 2:
         return 0.0
-    return (returns.mean() - risk_free / 252) / downside.std() * math.sqrt(252)
+    downside_std = downside.std()
+    if np.isnan(downside_std) or downside_std == 0:
+        return 0.0
+    return (returns.mean() - risk_free / 252) / downside_std * math.sqrt(252)
 
 
 def run_portfolio(db: Session, user: tables.User, request: PortfolioRunRequest) -> PortfolioRunResponse:
