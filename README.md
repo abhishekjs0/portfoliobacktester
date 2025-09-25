@@ -41,6 +41,10 @@ tests/      # Cross-cutting docs/tests (FastAPI + PyTest inside api/, Playwright
    ```
 5. Visit `http://localhost:3000` and upload the sample CSVs from `examples/`.
 
+### Explore every page quickly
+
+Open `http://localhost:3000/demo` to see a curated tour of the marketing site, onboarding forms, and authenticated dashboards. Each card links straight to the live route so product, sales, or investor teams can preview the full experience in minutes.
+
 ## Preview without touching code (Docker Desktop)
 
 If you just want to see the app in action without learning any commands, follow this plain-language checklist:
@@ -61,6 +65,12 @@ cd infra
 docker compose up --build
 ```
 
+To lint the Compose definition without worrying about which Docker CLI flavor is installed, run:
+
+```bash
+./scripts/docker-compose-config.sh
+```
+
 The stack exposes:
 
 - nginx proxy: `http://localhost:8080`
@@ -69,6 +79,19 @@ The stack exposes:
 - MinIO console: `http://localhost:9001` (credentials from `.env`)
 
 The Docker entrypoints automatically install dependencies, apply migrations (see `db/migrations`), and serve the production build.
+
+## Production deployment
+
+The frontend is ready to deploy to Vercel. Authenticate once by creating a [Vercel token](https://vercel.com/docs/rest-api#creating-an-access-token)
+and exporting it as `VERCEL_TOKEN`, then run the helper script to perform a non-interactive production release:
+
+```bash
+export VERCEL_TOKEN=******
+./scripts/vercel-deploy.sh
+```
+
+The script exits early with a clear error message if the CLI or token is missing so CI jobs fail fast instead of waiting for an
+interactive login prompt.
 
 ## Environment variables
 

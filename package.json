@@ -7,7 +7,9 @@
     "build": "pnpm --filter ./app build",
     "test": "pnpm --filter ./app test",
     "lint": "pnpm --filter ./app lint",
-    "type-check": "pnpm --filter ./app type-check"
+    "type-check": "pnpm --filter ./app type-check",
+    "docker:config": "./scripts/docker-compose-config.sh",
+    "deploy": "./scripts/vercel-deploy.sh"
   },
   "packageManager": "pnpm@8.15.4"
 }
