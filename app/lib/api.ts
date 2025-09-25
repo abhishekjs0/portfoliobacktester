@@ -1,8 +1,16 @@
 import type { 
   PortfolioRunRequest,
-  PortfolioRunResponse,
   PortfolioMetric
 } from "../types/api";
+
+export type PortfolioRunResponse = {
+  sections: {
+    performance: { metrics: PortfolioMetric[] };
+    tradesAnalysis: { metrics: PortfolioMetric[] };
+    riskRatios: { metrics: PortfolioMetric[] };
+  };
+  tradesTable: Record<string, unknown>[]; // TODO: Define proper trade type
+};
 
 export type RunPortfolioPayload = PortfolioRunRequest;
 export type BillingInterval = "monthly" | "annual";

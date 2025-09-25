@@ -1,4 +1,4 @@
-import { roadmapMilestones } from "../../lib/marketing-content";
+import { roadmapMilestones } from "../../../lib/marketing-content";
 
 const statusToLabel: Record<string, string> = {
   complete: "Complete",
@@ -30,7 +30,7 @@ export default function RoadmapPage() {
             Execution timeline
           </h2>
           <ol className="roadmap-list">
-            {roadmapMilestones.map((item) => (
+            {roadmapMilestones.map((item: typeof roadmapMilestones[number]) => (
               <li
                 key={item.title}
                 className={`roadmap-item roadmap-item--${item.status}`}

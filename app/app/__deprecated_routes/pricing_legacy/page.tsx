@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { faqItems, pricingPlans } from "../../lib/marketing-content";
+import { faqItems, pricingPlans } from "../../../lib/marketing-content";
 
 export default function PricingPage() {
   const supportFaq = faqItems.slice(3, 6);
@@ -33,7 +33,7 @@ export default function PricingPage() {
             Choose a plan that scales with your research
           </h2>
           <div className="pricing-grid">
-            {pricingPlans.map((plan) => (
+            {pricingPlans.map((plan: typeof pricingPlans[number]) => (
               <article key={plan.name} className="plan-card">
                 <div className="plan-card__badge">{plan.badge}</div>
                 <h3>{plan.name}</h3>
@@ -43,7 +43,7 @@ export default function PricingPage() {
                 </p>
                 <p className="plan-card__description">{plan.description}</p>
                 <ul>
-                  {plan.features.map((feature) => (
+                  {plan.features.map((feature: string) => (
                     <li key={feature}>{feature}</li>
                   ))}
                 </ul>
@@ -67,7 +67,7 @@ export default function PricingPage() {
             Billing questions, answered
           </h2>
           <div className="faq-grid">
-            {supportFaq.map((faq) => (
+            {supportFaq.map((faq: typeof faqItems[number]) => (
               <article key={faq.question} className="faq-card">
                 <h3>{faq.question}</h3>
                 <p>{faq.answer}</p>

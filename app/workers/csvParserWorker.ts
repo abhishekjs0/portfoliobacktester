@@ -9,7 +9,16 @@ type WorkerResponse =
   | { type: "result"; data: { rows: Array<Record<string, unknown>> } }
   | { type: "error"; data: { message: string } };
 
-const ctx: DedicatedWorkerGlobalScope = self as unknown as DedicatedWorkerGlobalScope;
+type ChunkResult = {
+  data: Record<string, unknown>[];
+  errors: Array<{ type: string; code: string; message: string; row: number }>;
+  meta: {
+    cursor: number;
+    row: number;
+  };
+};
+
+const ctx = self as unknown as Worker;
 
 ctx.onmessage = (event: MessageEvent<WorkerMessage>) => {
   const { file } = event.data;
@@ -18,19 +27,19 @@ ctx.onmessage = (event: MessageEvent<WorkerMessage>) => {
     return;
   }
 
-  Papa.parse<Record<string, unknown>>(file, {
+  Papa.parse(file, {
     worker: true,
     header: true,
     skipEmptyLines: true,
     dynamicTyping: true,
-    chunk: (chunk) => {
+    chunk: (chunk: ChunkResult) => {
       const progress = Math.min(1, (chunk.meta.cursor ?? 0) / file.size);
       ctx.postMessage({ type: "progress", data: { progress } } satisfies WorkerResponse);
     },
-    complete: (results) => {
+    complete: (results: { data: Record<string, unknown>[] }) => {
       ctx.postMessage({ type: "result", data: { rows: results.data } } satisfies WorkerResponse);
     },
-    error: (error) => {
+    error: (error: { message: string }) => {
       ctx.postMessage({ type: "error", data: { message: error.message } } satisfies WorkerResponse);
     },
   });
