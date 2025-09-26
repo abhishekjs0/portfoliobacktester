@@ -4,12 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 const navLinks = [
-  { href: "/demo", label: "Demo" },
-  { href: "/markets", label: "Markets" },
-  { href: "/ideas", label: "Ideas" },
-  { href: "/scripts", label: "Scripts" },
-  { href: "/screeners", label: "Screeners" },
   { href: "/backtests", label: "Backtests" },
+  { href: "/guide", label: "User guide" },
   { href: "/pricing", label: "Pricing" },
 ];
 
@@ -47,11 +43,11 @@ export function SiteHeader() {
           <Link
             href="/"
             className="site-header__logo"
-            aria-label="Portfolio backtester home"
+            aria-label="BacktestLab home"
             onClick={() => setIsMenuOpen(false)}
           >
             <span className="site-header__mark" aria-hidden="true" />
-            <span className="site-header__title">Portfolio Backtester</span>
+            <span className="site-header__title">BacktestLab</span>
           </Link>
           <button
             type="button"
@@ -107,7 +103,7 @@ export function SiteHeader() {
             Log in
           </Link>
           <Link href="/signup" className="button button--primary">
-            Join beta
+            Sign up
           </Link>
         </div>
       </div>

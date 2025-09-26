@@ -25,7 +25,7 @@ function Shell({ children }: PropsWithChildren) {
       <header className="border-b border-slate-200 bg-white/80 backdrop-blur dark:border-slate-800 dark:bg-slate-900/80">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
           <Link to="/" className="text-lg font-semibold tracking-tight">
-            BacktestPro
+            BacktestLab
           </Link>
           <nav className="flex items-center gap-4" aria-label="Main">
             <Link
@@ -67,7 +67,7 @@ function Shell({ children }: PropsWithChildren) {
       <footer className="border-t border-slate-200 bg-white px-6 py-6 text-sm text-slate-500 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400">
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-2 sm:flex-row sm:items-center">
           <p>
-            &copy; {new Date().getFullYear()} BacktestPro Inc. All rights
+            &copy; {new Date().getFullYear()} BacktestLab Inc. All rights
             reserved.
           </p>
           <div className="flex items-center gap-4">

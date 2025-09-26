@@ -4,7 +4,7 @@ import Providers from "@/components/providers";
 import "@/styles/globals.css";
 
 export const metadata = {
-  title: "Portfolio Backtester",
+  title: "BacktestLab",
   description: "Test and analyze trading strategies across multiple symbols.",
 };
 

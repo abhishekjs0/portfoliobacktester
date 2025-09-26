@@ -1,94 +1,99 @@
 export const keyBenefits = [
   {
-    title: "Save Hours Every Week",
+    title: "Upload once, merge everything",
     description:
-      "Automate the tedious export-and-merge workflow. Traders report reclaiming two hours a day compared with spreadsheets.",
+      "Drop Strategy Tester exports for every symbol and BacktestLab stitches them into a unified equity curve automatically.",
+    icon: "merge",
+    accent: "violet",
   },
   {
-    title: "Boost Strategy Confidence",
+    title: "Workspace that mirrors TradingView",
     description:
-      "Understand how each symbol contributes to portfolio risk and return so you can deploy capital with conviction.",
+      "Navigate overlays, trade tables, and KPI tiles in an interface inspired by TradingView—no new tooling to learn.",
+    icon: "layout",
+    accent: "blue",
   },
   {
-    title: "No Code, No Hassle",
+    title: "Decision-ready analytics",
     description:
-      "Import TradingView CSVs and receive portfolio analytics instantly. If you know TradingView, you already know how to use this.",
+      "Scan CAGR, drawdown, hit rate, and volatility at a glance so the strongest strategy mix stands out instantly.",
+    icon: "target",
+    accent: "teal",
   },
   {
-    title: "Insightful Metrics at a Glance",
+    title: "Iterate without spreadsheet chaos",
     description:
-      "Review portfolio CAGR, max drawdown, Sharpe, correlation and more without leaving the browser.",
+      "Duplicate runs, compare variations, and surface resilient blends without exporting a single CSV back to Excel.",
+    icon: "loop",
+    accent: "pink",
   },
 ];
 
 export const faqItems = [
   {
-    question: "Will this work without Pine Script?",
+    question: "Do I need to write Pine Script or code?",
     answer:
-      "Yes. Upload the trade CSVs generated from TradingView or any other platform. We analyse raw trade data—no Pine execution required.",
+      "No. Export trades from TradingView's Strategy Tester and drop the CSV files into BacktestLab. We handle the rest.",
   },
   {
-    question: "Do I need to be a programmer?",
+    question: "Can I upload more than one symbol at once?",
     answer:
-      "No coding skills are needed. The workflow mirrors TradingView's Strategy Tester with a guided upload wizard and interactive dashboards.",
+      "Yes. Select up to 100 CSV exports in one go. We'll merge them into a single portfolio view automatically.",
   },
   {
-    question: "Is my strategy data safe?",
+    question: "What happens to my strategy data?",
     answer:
-      "All uploads are encrypted in transit and at rest. You stay in control of your data, and you can opt for client-side only processing if preferred.",
+      "Your files stay private. Uploads are encrypted in transit and processed securely—nothing is shared without your consent.",
   },
   {
-    question: "How is this different from other backtest platforms?",
+    question: "Why use BacktestLab over spreadsheets?",
     answer:
-      "We focus on TradingView power-users. Instead of rewriting strategies in another language, simply reuse your existing exports and get portfolio-ready analytics.",
+      "We recreate the TradingView workflow with portfolio analytics built in. No manual merging, pivot tables or chart wrangling required.",
   },
   {
-    question: "Is there a free version?",
+    question: "Is there a free plan?",
     answer:
-      "Yes. The Free tier supports up to three symbols per backtest. Upgrade to unlock unlimited symbols, longer history and advanced comparison reports.",
+      "Absolutely. Start on the Free tier to test workflows with a few symbols, then upgrade only when you need more capacity.",
   },
   {
-    question: "How much data can it handle?",
+    question: "How large can my uploads be?",
     answer:
-      "Our compute pipeline comfortably processes hundreds of thousands of trades. Even ten years of data across 50 symbols completes in seconds.",
+      "Each CSV can be up to 20MB and we comfortably handle hundreds of thousands of trades across years of history.",
   },
 ];
 
 export const flows = [
   {
     id: "flow-1",
-    title: "Flow 1: Onboarding to First Portfolio Result",
-    description:
-      "Guide new users from signup to their first combined equity curve with an empty state, CSV upload modal and automated aggregation.",
+    title: "Get to your first portfolio result",
+    description: "Go from signup to a combined equity curve in just a few minutes.",
     steps: [
-      "Create an account and land on the dashboard with an empty state call-to-action.",
-      "Upload multiple TradingView CSVs via the guided modal with validation feedback.",
-      "Watch the processing status update in real-time as the backend merges trades.",
-      "Review the aggregated equity curve, KPIs and trade list once the run completes.",
+      "Create a BacktestLab account and open the dashboard.",
+      "Export Strategy Tester CSVs for each symbol you want to include.",
+      "Upload up to 100 files together using the drag-and-drop modal.",
+      "Review the merged equity curve, KPIs and trade list as soon as processing finishes.",
     ],
   },
   {
     id: "flow-2",
-    title: "Flow 2: Compare Strategies Across Symbols",
-    description:
-      "Enable power-users to evaluate multiple runs at once, selecting backtests and viewing overlayed metrics and equity curves.",
+    title: "Compare strategies side by side",
+    description: "Spot the strongest ideas by layering multiple backtests in one workspace.",
     steps: [
-      "Pick completed backtests from the list view using multi-select controls.",
-      "Open the comparison workspace to see equity curves stacked together.",
-      "Sort metrics by Sharpe, drawdown or hit-rate to spot the most resilient mix.",
-      "Decide which strategy to iterate on next or duplicate configurations for re-runs.",
+      "Select completed backtests from the list view with multi-select controls.",
+      "Open the comparison workspace to stack equity curves and tables together.",
+      "Sort metrics like Sharpe, drawdown or win rate to see what holds up.",
+      "Decide which strategy to scale or iterate on next without leaving the page.",
     ],
   },
   {
     id: "flow-3",
-    title: "Flow 3: Subscribe and Unlock Pro Features",
-    description:
-      "Upgrade paths surface when users hit Free tier limits, leading into a secure Stripe checkout and instant plan activation.",
+    title: "Upgrade when you need more headroom",
+    description: "Unlock pro tooling the moment you outgrow the Free tier limits.",
     steps: [
-      "Preview plan benefits from the pricing page or in-app upgrade prompts.",
-      "Launch Stripe Checkout with prefilled plan metadata for a smooth payment experience.",
-      "Return to the dashboard with confirmation messaging and increased symbol limits.",
-      "Access premium capabilities such as unlimited uploads and advanced analytics.",
+      "Preview plan benefits from in-app prompts or the pricing page.",
+      "Check out securely with Stripe—no support tickets or delays.",
+      "Return to the dashboard with confirmation and higher symbol limits.",
+      "Access premium analytics such as unlimited uploads and advanced risk views.",
     ],
   },
 ];
