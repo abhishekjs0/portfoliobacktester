@@ -5,7 +5,7 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="site-footer__inner">
         <div>
-          <h2 className="site-footer__title">Portfolio Backtester</h2>
+          <h2 className="site-footer__title">BacktestLab</h2>
           <p className="site-footer__copy">
             The missing multi-symbol backtesting layer for TradingView
             power-users. Upload CSVs, aggregate instantly and act with
@@ -17,16 +17,13 @@ export function SiteFooter() {
             <h3>Product</h3>
             <ul>
               <li>
-                <Link href="/features">Features</Link>
-              </li>
-              <li>
                 <Link href="/pricing">Pricing</Link>
               </li>
               <li>
                 <Link href="/backtests">Backtests</Link>
               </li>
               <li>
-                <Link href="/roadmap">Roadmap</Link>
+                <Link href="/guide">User guide</Link>
               </li>
             </ul>
           </div>
@@ -48,7 +45,7 @@ export function SiteFooter() {
       </div>
       <div className="site-footer__meta">
         <p>
-          © {new Date().getFullYear()} Portfolio Backtester. All rights
+          © {new Date().getFullYear()} BacktestLab. All rights
           reserved.
         </p>
         <div className="site-footer__meta-links">

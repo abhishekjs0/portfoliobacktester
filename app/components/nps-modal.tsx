@@ -5,7 +5,7 @@ import Button from "./ui/button";
 import { submitNpsResponse } from "../lib/api";
 import { trackEvent } from "../lib/analytics";
 
-const STORAGE_KEY = "portfolio-nps-last-response";
+const STORAGE_KEY = "backtestlab-nps-last-response";
 const SURVEY_DELAY_DAYS = 90;
 
 function shouldDisplaySurvey(): boolean {
@@ -70,7 +70,7 @@ export function NpsModal() {
       <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-slate-900 p-6 shadow-xl">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h2 className="text-xl font-semibold text-white">How likely are you to recommend Portfolio Backtester?</h2>
+            <h2 className="text-xl font-semibold text-white">How likely are you to recommend BacktestLab?</h2>
             <p className="mt-2 text-sm text-slate-300">0 = Not likely · 10 = Extremely likely</p>
           </div>
           <button onClick={close} className="text-slate-400 hover:text-white" aria-label="Dismiss survey">

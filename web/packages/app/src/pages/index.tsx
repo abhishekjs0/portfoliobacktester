@@ -74,7 +74,7 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2">
           <div>
             <h2 id="how-heading" className="text-2xl font-semibold text-slate-900 dark:text-white">
-              How BacktestPro accelerates your workflow
+              How BacktestLab accelerates your workflow
             </h2>
             <ol className="mt-8 space-y-6">
               <li className="flex gap-4">
@@ -133,28 +133,17 @@ export default function HomePage() {
       <section className="mt-16 rounded-3xl bg-indigo-600 px-6 py-12 text-white" aria-labelledby="cta-heading">
         <div className="mx-auto flex max-w-4xl flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
           <div>
-            <span className="text-sm uppercase tracking-widest text-indigo-200">Limited beta</span>
             <h2 id="cta-heading" className="mt-2 text-3xl font-semibold">
-              Join the early access cohort
+              Start analysing with BacktestLab today
             </h2>
             <p className="mt-2 text-indigo-100">
-              We onboard a handful of teams each month to ensure fast support and insightful onboarding.
+              Sign up to explore portfolio backtests, risk metrics, and data-driven insights without spreadsheets.
             </p>
           </div>
           <div className="w-full max-w-md">
-            <form className="flex flex-col gap-3 sm:flex-row" aria-label="Email capture" onSubmit={(event) => event.preventDefault()}>
-              <label className="sr-only" htmlFor="cta-email">
-                Work email
-              </label>
-              <input
-                id="cta-email"
-                type="email"
-                required
-                placeholder="you@example.com"
-                className="flex-1 rounded-md border border-indigo-400/60 bg-indigo-500/40 px-4 py-3 text-white placeholder:text-indigo-200 focus:border-white focus:outline-none focus:ring-2 focus:ring-white"
-              />
-              <Button type="submit">Reserve my spot</Button>
-            </form>
+            <Button asChild className="w-full sm:w-auto">
+              <Link to="/signup">Create free account</Link>
+            </Button>
           </div>
         </div>
       </section>

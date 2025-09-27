@@ -47,6 +47,7 @@ export function isProtectedRoute(pathname: string): boolean {
     "/",
     "/login",
     "/signup",
+    "/guide",
     "/demo",
     "/markets",
     "/ideas",

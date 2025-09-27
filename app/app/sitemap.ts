@@ -24,6 +24,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
     },
     {
+      url: `${base}/guide`,
+      lastModified,
+    },
+    {
       url: `${base}/dashboard`,
       lastModified,
     },
