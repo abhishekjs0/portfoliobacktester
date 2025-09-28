@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button, Card, CSVUpload, MetricCard, Modal } from "@backtester/ui";
 
 export default function DashboardHomePage() {
@@ -20,9 +21,15 @@ export default function DashboardHomePage() {
             Combine multiple TradingView exports into a single portfolio run. Drag in your CSVs to start analysis instantly.
           </p>
           {selectedFile ? (
-            <p className="mt-4 text-sm text-emerald-600">Last uploaded: {selectedFile}</p>
+            <p className="mt-4 text-sm text-emerald-500">Last uploaded: {selectedFile}</p>
           ) : (
-            <p className="mt-4 text-sm text-slate-500">No files uploaded yet.</p>
+            <div className="mt-4 space-y-2 text-sm">
+              <p className="font-medium text-slate-200">Upload your first CSV to get started.</p>
+              <p className="text-slate-400">Drag and drop Strategy Tester exports — everything processes locally for privacy.</p>
+              <p className="text-slate-500">
+                Need a walkthrough? <Link className="text-fuchsia-400 hover:text-fuchsia-300" to="/guide">Open the user guide</Link>.
+              </p>
+            </div>
           )}
         </Card>
         <Card heading="Latest activity">

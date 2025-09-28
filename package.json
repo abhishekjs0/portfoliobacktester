@@ -11,5 +11,8 @@
     "docker:config": "./scripts/docker-compose-config.sh",
     "deploy": "./scripts/vercel-deploy.sh"
   },
-  "packageManager": "pnpm@8.15.4"
+  "packageManager": "pnpm@8.15.4",
+  "devDependencies": {
+    "vercel": "^48.1.6"
+  }
 }

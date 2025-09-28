@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 
 import { MarketingShell } from "@/components/marketing-shell";
+import { HeroUploadForm } from "@/components/hero-upload-form";
 import { keyBenefits } from "../lib/marketing-content";
 
 const iconLibrary: Record<string, ReactNode> = {
@@ -155,57 +156,7 @@ export default function Home() {
               </article>
             </div>
             <div className="hero__panel" id="upload-panel">
-              <form className="hero__upload" aria-label="Upload TradingView CSV">
-                <div className="hero__upload-box">
-                  <svg
-                    aria-hidden="true"
-                    focusable="false"
-                    width="48"
-                    height="48"
-                    viewBox="0 0 48 48"
-                    className="hero__upload-icon"
-                  >
-                    <path
-                      d="M24 12v18m0-18-6 6m6-6 6 6M16 30h16"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <rect
-                      x="5"
-                      y="5"
-                      width="38"
-                      height="38"
-                      rx="11"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      opacity="0.25"
-                    />
-                  </svg>
-                  <p className="hero__upload-title">Drop your TradingView CSVs</p>
-                  <p className="hero__upload-subtitle">
-                    Drag &amp; drop Strategy Tester exports or browse to select them manually.
-                  </p>
-                  <label htmlFor="hero-upload" className="button button--outline hero__upload-button">
-                    Choose file
-                  </label>
-                  <input
-                    id="hero-upload"
-                    type="file"
-                    accept=".csv"
-                    multiple
-                    className="hero__file-input"
-                    aria-describedby="upload-hint"
-                  />
-                  <p id="upload-hint" className="hero__upload-hint">
-                    Upload up to 100 CSV exports · Max 20MB each
-                  </p>
-                </div>
-                <p className="hero__disclaimer">
-                  Processing happens locally in your browser session. No trading data is persisted.
-                </p>
-              </form>
+              <HeroUploadForm />
             </div>
           </div>
         </section>
