@@ -57,8 +57,13 @@ function SortableHeader({
 }) {
   const isActive = activeSort.key === sortKey;
   const direction = isActive ? activeSort.direction : undefined;
+  const ariaSort: "ascending" | "descending" | "none" = isActive
+    ? direction === "asc"
+      ? "ascending"
+      : "descending"
+    : "none";
   return (
-    <th scope="col" className={`px-4 py-3 ${numeric ? "text-right" : "text-left"}`} aria-sort={isActive ? direction : "none"}>
+    <th scope="col" className={`px-4 py-3 ${numeric ? "text-right" : "text-left"}`} aria-sort={ariaSort}>
       <button
         type="button"
         onClick={() => onSort(sortKey)}
