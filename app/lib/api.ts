@@ -81,12 +81,15 @@ export async function uploadFiles(files: File[]): Promise<UploadResponse> {
   let response: Response;
 
   try {
-    const requestInit: RequestInit & { duplex: "half" } = {
+    const requestInit: RequestInit = {
       method: "POST",
       body: formData,
-      // Required for streaming uploads when using Node's implementation of fetch.
-      duplex: "half",
     };
+
+    if (typeof window === "undefined") {
+      // Node's implementation of fetch requires the duplex flag for streamed uploads.
+      (requestInit as RequestInit & { duplex: "half" }).duplex = "half";
+    }
 
     response = await fetch("/api/proxy/api/uploads", requestInit);
   } catch (error) {
