@@ -78,13 +78,42 @@ export async function uploadFiles(files: File[]): Promise<UploadResponse> {
     formData.append("files", file);
   });
 
-  const response = await fetch("/api/proxy/api/uploads", {
-    method: "POST",
-    body: formData,
-  });
+  let response: Response;
+
+  try {
+    const requestInit: RequestInit = {
+      method: "POST",
+      body: formData,
+    };
+
+    if (typeof window === "undefined") {
+      // Node's implementation of fetch requires the duplex flag for streamed uploads.
+      (requestInit as RequestInit & { duplex: "half" }).duplex = "half";
+    }
+
+    response = await fetch("/api/proxy/api/uploads", requestInit);
+  } catch (error) {
+    console.error("Upload request failed", error);
+    throw new Error("Something went wrong processing your file. Please retry or contact support.");
+  }
 
   if (!response.ok) {
-    throw new Error("Upload failed. Please try again.");
+    let errorMessage = "Something went wrong processing your file. Please retry or contact support.";
+
+    if ([400, 415, 422].includes(response.status)) {
+      errorMessage = "Invalid file format. Please upload TradingView Strategy Tester CSVs (max 20 MB).";
+    }
+
+    try {
+      const errorBody = (await response.json()) as { message?: string } | undefined;
+      if (errorBody?.message) {
+        errorMessage = errorBody.message;
+      }
+    } catch {
+      // Ignore parse errors and fallback to our friendly message
+    }
+
+    throw new Error(errorMessage);
   }
 
   const data = (await response.json()) as Partial<UploadResponse>;

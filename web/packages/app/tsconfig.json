@@ -6,8 +6,18 @@
       "@backtester/ui": ["../ui/src"],
       "@backtester/ui/*": ["../ui/src/*"]
     },
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "typeRoots": [
+      "./types",
+      "./node_modules/@types",
+      "../node_modules/@types",
+      "../../node_modules/@types",
+      "../../../node_modules/@types"
+    ],
+    "strict": false,
+    "noImplicitAny": false,
+    "skipLibCheck": true
   },
-  "include": ["src"],
+  "include": ["src", "types"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
