@@ -79,7 +79,6 @@ export default function UploadPage() {
       const response = await uploadFiles(files);
       trackEvent("csv_upload_submitted", { files: files.length });
       setSuccessMessage(`Uploaded ${response.files.length} file${response.files.length === 1 ? "" : "s"} successfully.`);
-      showToast("success", "Upload complete. Sign in to view combined results.");
       completeChecklistStep("upload-demo");
       setTimeout(() => {
         router.push(`/dashboard?batchId=${response.batchId}`);
@@ -119,7 +118,10 @@ export default function UploadPage() {
         )}
         {successMessage && (
           <div className="rounded-md border border-emerald-500/40 bg-emerald-500/10 p-3 text-sm text-emerald-200" role="status">
-            {successMessage}
+            <p>{successMessage}</p>
+            <p className="mt-1 text-xs text-emerald-100/80 sm:text-sm">
+              Upload complete. Sign in to view combined results.
+            </p>
           </div>
         )}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
